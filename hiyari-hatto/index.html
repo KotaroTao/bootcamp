@@ -44,6 +44,23 @@
             font-size: 24px;
         }
 
+        .connection-badge {
+            font-size: 11px;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-weight: 600;
+        }
+
+        .connection-badge.online {
+            background: rgba(72, 187, 120, 0.3);
+            color: #f0fff4;
+        }
+
+        .connection-badge.offline {
+            background: rgba(255, 255, 255, 0.2);
+            color: rgba(255, 255, 255, 0.8);
+        }
+
         /* ========== タブ ========== */
         .tabs {
             display: flex;
@@ -79,6 +96,79 @@
 
         .page.active {
             display: block;
+        }
+
+        /* ========== 設定バナー ========== */
+        .setup-banner {
+            background: #ebf8ff;
+            border: 2px solid #90cdf4;
+            border-radius: 10px;
+            padding: 16px;
+            margin-bottom: 20px;
+        }
+
+        .setup-banner h3 {
+            font-size: 14px;
+            color: #2b6cb0;
+            margin-bottom: 8px;
+        }
+
+        .setup-banner p {
+            font-size: 13px;
+            color: #4a5568;
+            margin-bottom: 12px;
+            line-height: 1.5;
+        }
+
+        .gas-url-input {
+            display: flex;
+            gap: 8px;
+        }
+
+        .gas-url-input input {
+            flex: 1;
+            padding: 10px 12px;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 14px;
+        }
+
+        .gas-url-input input:focus {
+            outline: none;
+            border-color: #4299e1;
+        }
+
+        .gas-url-input button {
+            padding: 10px 20px;
+            background: #4299e1;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            white-space: nowrap;
+        }
+
+        .setup-status {
+            margin-top: 8px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .setup-status.success { color: #276749; }
+        .setup-status.error { color: #9b2c2c; }
+
+        .disconnect-btn {
+            margin-top: 8px;
+            padding: 6px 14px;
+            background: #fed7d7;
+            color: #9b2c2c;
+            border: none;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
         }
 
         /* ========== 報告フォーム ========== */
@@ -207,6 +297,33 @@
 
         .submit-btn:active {
             transform: scale(0.98);
+        }
+
+        .submit-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        /* ========== ローディング ========== */
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: #a0aec0;
+        }
+
+        .spinner {
+            display: inline-block;
+            width: 32px;
+            height: 32px;
+            border: 3px solid #e2e8f0;
+            border-top-color: #e53e3e;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+            margin-bottom: 8px;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
         }
 
         /* ========== 報告一覧 ========== */
@@ -471,6 +588,60 @@
             background: #e53e3e;
             color: white;
         }
+
+        /* ========== 設定ページ ========== */
+        .settings-section {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 16px;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+        }
+
+        .settings-section h3 {
+            font-size: 15px;
+            font-weight: 700;
+            color: #2d3748;
+            margin-bottom: 12px;
+        }
+
+        .settings-section p {
+            font-size: 13px;
+            color: #718096;
+            line-height: 1.6;
+            margin-bottom: 12px;
+        }
+
+        .settings-section ol {
+            font-size: 13px;
+            color: #4a5568;
+            line-height: 2;
+            padding-left: 20px;
+            margin-bottom: 12px;
+        }
+
+        .settings-connected {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px;
+            background: #f0fff4;
+            border-radius: 8px;
+            margin-bottom: 12px;
+        }
+
+        .settings-connected .dot {
+            width: 10px;
+            height: 10px;
+            background: #48bb78;
+            border-radius: 50%;
+        }
+
+        .settings-connected span {
+            font-size: 13px;
+            font-weight: 600;
+            color: #276749;
+        }
     </style>
 </head>
 <body>
@@ -481,6 +652,7 @@
             <span class="header-icon">&#9888;</span>
             ヒヤリハット報告
         </h1>
+        <span id="connection-badge" class="connection-badge offline">ローカル保存</span>
     </div>
 
     <!-- タブ -->
@@ -488,10 +660,17 @@
         <div class="tab active" data-tab="report">報告する</div>
         <div class="tab" data-tab="list">一覧</div>
         <div class="tab" data-tab="stats">集計</div>
+        <div class="tab" data-tab="settings">設定</div>
     </div>
 
     <!-- ===== 報告ページ ===== -->
     <div id="page-report" class="page active">
+        <!-- GAS未設定時の案内バナー -->
+        <div id="setup-banner" class="setup-banner">
+            <h3>&#128279; スプレッドシートに接続しよう</h3>
+            <p>Google スプレッドシートと連携すると、報告データをチーム全員で共有できます。<br>「設定」タブから接続してください。接続しなくてもローカルで使えます。</p>
+        </div>
+
         <form id="report-form">
             <div class="form-group">
                 <label class="form-label">
@@ -553,7 +732,7 @@
                 </label>
             </div>
 
-            <button type="submit" class="submit-btn">報告を送信する</button>
+            <button type="submit" class="submit-btn" id="submit-btn">報告を送信する</button>
         </form>
     </div>
 
@@ -567,8 +746,38 @@
         <div id="stats-content"></div>
     </div>
 
+    <!-- ===== 設定ページ ===== -->
+    <div id="page-settings" class="page">
+        <div class="settings-section">
+            <h3>&#9989; Google スプレッドシート連携</h3>
+            <div id="settings-status"></div>
+            <div id="settings-form">
+                <p>スプレッドシートと連携すると、報告データがリアルタイムで共有されます。</p>
+                <ol>
+                    <li>Google スプレッドシートを新規作成</li>
+                    <li>「拡張機能」→「Apps Script」を開く</li>
+                    <li><code>gas/Code.gs</code> のコードを貼り付けて保存</li>
+                    <li>関数 <code>initSheet</code> を実行（初回のみ）</li>
+                    <li>「デプロイ」→「新しいデプロイ」→「ウェブアプリ」<br>
+                        アクセスできるユーザー：「全員」に設定</li>
+                    <li>表示されたURLを下に貼り付け</li>
+                </ol>
+                <div class="gas-url-input">
+                    <input type="url" id="gas-url" placeholder="https://script.google.com/macros/s/..." >
+                    <button type="button" id="connect-btn">接続</button>
+                </div>
+                <div id="connect-status" class="setup-status"></div>
+            </div>
+        </div>
+
+        <div class="settings-section">
+            <h3>&#128190; データについて</h3>
+            <p id="data-info"></p>
+        </div>
+    </div>
+
     <!-- トースト -->
-    <div id="toast" class="toast">報告を送信しました</div>
+    <div id="toast" class="toast"></div>
 
     <!-- 削除確認ダイアログ -->
     <div id="delete-dialog" class="dialog-overlay">
@@ -582,24 +791,103 @@
     </div>
 
     <script>
-        // ===== データ管理 =====
+        // ===================================================================
+        //  設定
+        // ===================================================================
         const STORAGE_KEY = 'hiyari_hatto_reports';
+        const GAS_URL_KEY = 'hiyari_hatto_gas_url';
 
-        function getReports() {
+        function getGasUrl() {
+            return localStorage.getItem(GAS_URL_KEY) || '';
+        }
+
+        function isConnected() {
+            return !!getGasUrl();
+        }
+
+        // ===================================================================
+        //  データ管理（ローカル / スプレッドシート 両対応）
+        // ===================================================================
+
+        // --- ローカル ---
+        function getLocalReports() {
             const data = localStorage.getItem(STORAGE_KEY);
             return data ? JSON.parse(data) : [];
         }
 
-        function saveReports(reports) {
+        function saveLocalReports(reports) {
             localStorage.setItem(STORAGE_KEY, JSON.stringify(reports));
         }
 
-        // ===== 初期化 =====
-        document.addEventListener('DOMContentLoaded', () => {
-            // 日時を現在時刻に設定
-            setCurrentDateTime();
+        // --- スプレッドシート ---
+        async function fetchRemoteReports() {
+            const url = getGasUrl();
+            const res = await fetch(url);
+            const data = await res.json();
+            if (!data.success) throw new Error(data.error || '取得に失敗しました');
+            return data.reports || [];
+        }
 
-            // 匿名チェックで氏名欄の連動
+        async function addRemoteReport(report) {
+            const url = getGasUrl();
+            const res = await fetch(url, {
+                method: 'POST',
+                headers: { 'Content-Type': 'text/plain' },
+                body: JSON.stringify({ action: 'add', ...report })
+            });
+            const data = await res.json();
+            if (!data.success) throw new Error(data.error || '送信に失敗しました');
+            return data;
+        }
+
+        async function deleteRemoteReport(id) {
+            const url = getGasUrl();
+            const res = await fetch(url, {
+                method: 'POST',
+                headers: { 'Content-Type': 'text/plain' },
+                body: JSON.stringify({ action: 'delete', id: String(id) })
+            });
+            const data = await res.json();
+            if (!data.success) throw new Error(data.error || '削除に失敗しました');
+            return data;
+        }
+
+        // --- 統合 API ---
+        async function getReports() {
+            if (isConnected()) {
+                return await fetchRemoteReports();
+            }
+            return getLocalReports();
+        }
+
+        async function addReport(report) {
+            if (isConnected()) {
+                await addRemoteReport(report);
+            } else {
+                const reports = getLocalReports();
+                reports.unshift(report);
+                saveLocalReports(reports);
+            }
+        }
+
+        async function deleteReport(id) {
+            if (isConnected()) {
+                await deleteRemoteReport(id);
+            } else {
+                let reports = getLocalReports();
+                reports = reports.filter(r => r.id !== id && String(r.id) !== String(id));
+                saveLocalReports(reports);
+            }
+        }
+
+        // ===================================================================
+        //  UI 初期化
+        // ===================================================================
+        document.addEventListener('DOMContentLoaded', () => {
+            setCurrentDateTime();
+            updateConnectionUI();
+
+            // 匿名チェック
             document.getElementById('anonymous').addEventListener('change', (e) => {
                 const reporter = document.getElementById('reporter');
                 if (e.target.checked) {
@@ -624,6 +912,12 @@
             document.getElementById('delete-cancel').addEventListener('click', () => {
                 document.getElementById('delete-dialog').classList.remove('show');
             });
+
+            // GAS接続
+            document.getElementById('connect-btn').addEventListener('click', handleConnect);
+
+            // URLフィールドに既存値を表示
+            document.getElementById('gas-url').value = getGasUrl();
         });
 
         function setCurrentDateTime() {
@@ -633,7 +927,84 @@
             document.getElementById('datetime').value = local.toISOString().slice(0, 16);
         }
 
-        // ===== タブ切り替え =====
+        function updateConnectionUI() {
+            const badge = document.getElementById('connection-badge');
+            const banner = document.getElementById('setup-banner');
+            const dataInfo = document.getElementById('data-info');
+            const statusEl = document.getElementById('settings-status');
+
+            if (isConnected()) {
+                badge.textContent = 'スプレッドシート連携中';
+                badge.className = 'connection-badge online';
+                banner.style.display = 'none';
+                dataInfo.textContent = 'データは Google スプレッドシートに保存されています。スプレッドシートを直接開いて確認・編集することもできます。';
+                statusEl.innerHTML = `
+                    <div class="settings-connected">
+                        <div class="dot"></div>
+                        <span>スプレッドシートに接続済み</span>
+                    </div>
+                    <button type="button" class="disconnect-btn" id="disconnect-btn">接続を解除</button>
+                `;
+                document.getElementById('disconnect-btn').addEventListener('click', () => {
+                    localStorage.removeItem(GAS_URL_KEY);
+                    document.getElementById('gas-url').value = '';
+                    document.getElementById('connect-status').textContent = '';
+                    updateConnectionUI();
+                    showToast('接続を解除しました');
+                });
+            } else {
+                badge.textContent = 'ローカル保存';
+                badge.className = 'connection-badge offline';
+                banner.style.display = 'block';
+                dataInfo.textContent = 'データはこのブラウザの localStorage に保存されています。別の端末からはアクセスできません。';
+                statusEl.innerHTML = '';
+            }
+        }
+
+        // ===================================================================
+        //  GAS接続テスト
+        // ===================================================================
+        async function handleConnect() {
+            const urlInput = document.getElementById('gas-url');
+            const statusEl = document.getElementById('connect-status');
+            const btn = document.getElementById('connect-btn');
+            const url = urlInput.value.trim();
+
+            if (!url) {
+                statusEl.textContent = 'URLを入力してください';
+                statusEl.className = 'setup-status error';
+                return;
+            }
+
+            btn.disabled = true;
+            btn.textContent = '接続中...';
+            statusEl.textContent = '';
+
+            try {
+                const res = await fetch(url);
+                const data = await res.json();
+
+                if (data.success !== undefined) {
+                    localStorage.setItem(GAS_URL_KEY, url);
+                    statusEl.textContent = '接続に成功しました！';
+                    statusEl.className = 'setup-status success';
+                    updateConnectionUI();
+                    showToast('スプレッドシートに接続しました');
+                } else {
+                    throw new Error('レスポンス形式が不正です');
+                }
+            } catch (err) {
+                statusEl.textContent = '接続に失敗しました: ' + err.message;
+                statusEl.className = 'setup-status error';
+            } finally {
+                btn.disabled = false;
+                btn.textContent = '接続';
+            }
+        }
+
+        // ===================================================================
+        //  タブ切り替え
+        // ===================================================================
         function switchTab(tabName) {
             document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
             document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
@@ -645,8 +1016,10 @@
             if (tabName === 'stats') renderStats();
         }
 
-        // ===== 報告送信 =====
-        function handleSubmit(e) {
+        // ===================================================================
+        //  報告送信
+        // ===================================================================
+        async function handleSubmit(e) {
             e.preventDefault();
 
             const severity = document.querySelector('input[name="severity"]:checked');
@@ -654,6 +1027,10 @@
                 alert('深刻度を選択してください');
                 return;
             }
+
+            const submitBtn = document.getElementById('submit-btn');
+            submitBtn.disabled = true;
+            submitBtn.textContent = '送信中...';
 
             const report = {
                 id: Date.now(),
@@ -667,58 +1044,80 @@
                 createdAt: new Date().toISOString()
             };
 
-            const reports = getReports();
-            reports.unshift(report);
-            saveReports(reports);
+            try {
+                await addReport(report);
 
-            // フォームリセット
-            e.target.reset();
-            setCurrentDateTime();
-            document.getElementById('reporter').disabled = false;
-            document.getElementById('reporter').placeholder = '氏名';
+                // フォームリセット
+                e.target.reset();
+                setCurrentDateTime();
+                document.getElementById('reporter').disabled = false;
+                document.getElementById('reporter').placeholder = '氏名';
 
-            showToast('報告を送信しました');
+                const dest = isConnected() ? 'スプレッドシートに送信しました' : '報告を保存しました';
+                showToast(dest);
+            } catch (err) {
+                showToast('エラー: ' + err.message);
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.textContent = '報告を送信する';
+            }
         }
 
-        // ===== 一覧表示 =====
-        function renderList() {
-            const reports = getReports();
+        // ===================================================================
+        //  一覧表示
+        // ===================================================================
+        async function renderList() {
             const container = document.getElementById('report-list');
+            container.innerHTML = '<div class="loading"><div class="spinner"></div><p>読み込み中...</p></div>';
 
-            if (reports.length === 0) {
+            try {
+                const reports = await getReports();
+
+                if (reports.length === 0) {
+                    container.innerHTML = `
+                        <div class="empty-state">
+                            <div class="icon">&#128203;</div>
+                            <p>まだ報告がありません</p>
+                        </div>
+                    `;
+                    return;
+                }
+
+                container.innerHTML = reports.map(r => {
+                    const severityClass = r.severity === '軽微' ? 'low' : r.severity === '要注意' ? 'mid' : 'high';
+                    const cardClass = r.severity === '軽微' ? 'severity-low-card' : r.severity === '要注意' ? 'severity-mid-card' : 'severity-high-card';
+                    const date = new Date(r.datetime);
+                    const dateStr = isNaN(date.getTime()) ? r.datetime : `${date.getMonth() + 1}/${date.getDate()} ${String(date.getHours()).padStart(2, '0')}:${String(date.getMinutes()).padStart(2, '0')}`;
+
+                    return `
+                        <div class="report-card ${cardClass}">
+                            <div class="report-header">
+                                <span class="report-category">${escapeHtml(r.category)}</span>
+                                <span class="report-date">${dateStr}</span>
+                            </div>
+                            <div class="report-content">${escapeHtml(r.content)}</div>
+                            <div class="report-footer">
+                                <span class="severity-badge ${severityClass}">${escapeHtml(r.severity)}</span>
+                                <span>${escapeHtml(r.reporter)}</span>
+                                <button class="delete-btn" onclick="confirmDelete('${escapeHtml(String(r.id))}')" title="削除">&#128465;</button>
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+            } catch (err) {
                 container.innerHTML = `
                     <div class="empty-state">
-                        <div class="icon">&#128203;</div>
-                        <p>まだ報告がありません</p>
+                        <div class="icon">&#9888;</div>
+                        <p>データの取得に失敗しました</p>
+                        <p style="font-size:12px; margin-top:8px;">${escapeHtml(err.message)}</p>
                     </div>
                 `;
-                return;
             }
-
-            container.innerHTML = reports.map(r => {
-                const severityClass = r.severity === '軽微' ? 'low' : r.severity === '要注意' ? 'mid' : 'high';
-                const cardClass = r.severity === '軽微' ? 'severity-low-card' : r.severity === '要注意' ? 'severity-mid-card' : 'severity-high-card';
-                const date = new Date(r.datetime);
-                const dateStr = `${date.getMonth() + 1}/${date.getDate()} ${String(date.getHours()).padStart(2, '0')}:${String(date.getMinutes()).padStart(2, '0')}`;
-
-                return `
-                    <div class="report-card ${cardClass}">
-                        <div class="report-header">
-                            <span class="report-category">${escapeHtml(r.category)}</span>
-                            <span class="report-date">${dateStr}</span>
-                        </div>
-                        <div class="report-content">${escapeHtml(r.content)}</div>
-                        <div class="report-footer">
-                            <span class="severity-badge ${severityClass}">${escapeHtml(r.severity)}</span>
-                            <span>${escapeHtml(r.reporter)}</span>
-                            <button class="delete-btn" onclick="confirmDelete(${r.id})" title="削除">&#128465;</button>
-                        </div>
-                    </div>
-                `;
-            }).join('');
         }
 
-        // ===== 削除 =====
+        // ===================================================================
+        //  削除
+        // ===================================================================
         let deleteTargetId = null;
 
         function confirmDelete(id) {
@@ -726,122 +1125,143 @@
             document.getElementById('delete-dialog').classList.add('show');
         }
 
-        document.getElementById('delete-confirm').addEventListener('click', () => {
+        document.getElementById('delete-confirm').addEventListener('click', async () => {
             if (deleteTargetId !== null) {
-                let reports = getReports();
-                reports = reports.filter(r => r.id !== deleteTargetId);
-                saveReports(reports);
-                deleteTargetId = null;
-                document.getElementById('delete-dialog').classList.remove('show');
-                renderList();
-                showToast('報告を削除しました');
+                try {
+                    await deleteReport(deleteTargetId);
+                    deleteTargetId = null;
+                    document.getElementById('delete-dialog').classList.remove('show');
+                    renderList();
+                    showToast('報告を削除しました');
+                } catch (err) {
+                    document.getElementById('delete-dialog').classList.remove('show');
+                    showToast('削除に失敗しました: ' + err.message);
+                }
             }
         });
 
-        // ===== 集計 =====
-        function renderStats() {
-            const reports = getReports();
+        // ===================================================================
+        //  集計
+        // ===================================================================
+        async function renderStats() {
             const container = document.getElementById('stats-content');
+            container.innerHTML = '<div class="loading"><div class="spinner"></div><p>集計中...</p></div>';
 
-            if (reports.length === 0) {
+            try {
+                const reports = await getReports();
+
+                if (reports.length === 0) {
+                    container.innerHTML = `
+                        <div class="empty-state">
+                            <div class="icon">&#128202;</div>
+                            <p>データがありません</p>
+                        </div>
+                    `;
+                    return;
+                }
+
+                // 深刻度別カウント
+                const severityCounts = { '軽微': 0, '要注意': 0, '重大': 0 };
+                reports.forEach(r => { severityCounts[r.severity] = (severityCounts[r.severity] || 0) + 1; });
+
+                // 分類別カウント
+                const categoryCounts = {};
+                reports.forEach(r => { categoryCounts[r.category] = (categoryCounts[r.category] || 0) + 1; });
+                const maxCatCount = Math.max(...Object.values(categoryCounts));
+
+                const catColors = {
+                    '投薬': 'cat-medication',
+                    '器具': 'cat-instrument',
+                    '転倒': 'cat-fall',
+                    '感染対策': 'cat-infection',
+                    'その他': 'cat-other'
+                };
+
+                const categoryBars = Object.entries(categoryCounts)
+                    .sort((a, b) => b[1] - a[1])
+                    .map(([cat, count]) => {
+                        const pct = Math.round((count / maxCatCount) * 100);
+                        const colorClass = catColors[cat] || 'cat-other';
+                        return `
+                            <div class="bar-item">
+                                <span class="bar-label">${escapeHtml(cat)}</span>
+                                <div class="bar-track">
+                                    <div class="bar-fill ${colorClass}" style="width: ${pct}%">${count}件</div>
+                                </div>
+                            </div>
+                        `;
+                    }).join('');
+
+                // 月別推移
+                const monthCounts = {};
+                reports.forEach(r => {
+                    const d = new Date(r.datetime);
+                    if (!isNaN(d.getTime())) {
+                        const key = `${d.getFullYear()}/${d.getMonth() + 1}`;
+                        monthCounts[key] = (monthCounts[key] || 0) + 1;
+                    }
+                });
+                const maxMonthCount = Math.max(...Object.values(monthCounts), 1);
+                const monthBars = Object.entries(monthCounts)
+                    .sort((a, b) => a[0].localeCompare(b[0]))
+                    .slice(-6)
+                    .map(([month, count]) => {
+                        const pct = Math.round((count / maxMonthCount) * 100);
+                        return `
+                            <div class="bar-item">
+                                <span class="bar-label">${month}</span>
+                                <div class="bar-track">
+                                    <div class="bar-fill cat-medication" style="width: ${pct}%">${count}件</div>
+                                </div>
+                            </div>
+                        `;
+                    }).join('');
+
                 container.innerHTML = `
-                    <div class="empty-state">
-                        <div class="icon">&#128202;</div>
-                        <p>データがありません</p>
+                    <div class="stats-card">
+                        <h3>総報告件数</h3>
+                        <div class="stats-number">${reports.length}<span style="font-size:16px; color:#718096"> 件</span></div>
+                    </div>
+
+                    <div class="stats-row">
+                        <div class="stats-card">
+                            <h3>軽微</h3>
+                            <div class="stats-number" style="color:#48bb78">${severityCounts['軽微']}</div>
+                        </div>
+                        <div class="stats-card">
+                            <h3>要注意</h3>
+                            <div class="stats-number" style="color:#ecc94b">${severityCounts['要注意']}</div>
+                        </div>
+                        <div class="stats-card">
+                            <h3>重大</h3>
+                            <div class="stats-number" style="color:#e53e3e">${severityCounts['重大']}</div>
+                        </div>
+                    </div>
+
+                    <div class="stats-card">
+                        <h3>分類別の報告件数</h3>
+                        <div class="bar-chart">${categoryBars}</div>
+                    </div>
+
+                    <div class="stats-card">
+                        <h3>月別推移</h3>
+                        <div class="bar-chart">${monthBars || '<p style="color:#a0aec0; text-align:center;">データ不足</p>'}</div>
                     </div>
                 `;
-                return;
+            } catch (err) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <div class="icon">&#9888;</div>
+                        <p>集計データの取得に失敗しました</p>
+                        <p style="font-size:12px; margin-top:8px;">${escapeHtml(err.message)}</p>
+                    </div>
+                `;
             }
-
-            // 深刻度別カウント
-            const severityCounts = { '軽微': 0, '要注意': 0, '重大': 0 };
-            reports.forEach(r => { severityCounts[r.severity] = (severityCounts[r.severity] || 0) + 1; });
-
-            // 分類別カウント
-            const categoryCounts = {};
-            reports.forEach(r => { categoryCounts[r.category] = (categoryCounts[r.category] || 0) + 1; });
-            const maxCatCount = Math.max(...Object.values(categoryCounts));
-
-            const catColors = {
-                '投薬': 'cat-medication',
-                '器具': 'cat-instrument',
-                '転倒': 'cat-fall',
-                '感染対策': 'cat-infection',
-                'その他': 'cat-other'
-            };
-
-            const categoryBars = Object.entries(categoryCounts)
-                .sort((a, b) => b[1] - a[1])
-                .map(([cat, count]) => {
-                    const pct = Math.round((count / maxCatCount) * 100);
-                    const colorClass = catColors[cat] || 'cat-other';
-                    return `
-                        <div class="bar-item">
-                            <span class="bar-label">${escapeHtml(cat)}</span>
-                            <div class="bar-track">
-                                <div class="bar-fill ${colorClass}" style="width: ${pct}%">${count}件</div>
-                            </div>
-                        </div>
-                    `;
-                }).join('');
-
-            // 月別推移（直近6ヶ月）
-            const monthCounts = {};
-            reports.forEach(r => {
-                const d = new Date(r.datetime);
-                const key = `${d.getFullYear()}/${d.getMonth() + 1}`;
-                monthCounts[key] = (monthCounts[key] || 0) + 1;
-            });
-            const maxMonthCount = Math.max(...Object.values(monthCounts), 1);
-            const monthBars = Object.entries(monthCounts)
-                .sort((a, b) => a[0].localeCompare(b[0]))
-                .slice(-6)
-                .map(([month, count]) => {
-                    const pct = Math.round((count / maxMonthCount) * 100);
-                    return `
-                        <div class="bar-item">
-                            <span class="bar-label">${month}</span>
-                            <div class="bar-track">
-                                <div class="bar-fill cat-medication" style="width: ${pct}%">${count}件</div>
-                            </div>
-                        </div>
-                    `;
-                }).join('');
-
-            container.innerHTML = `
-                <div class="stats-card">
-                    <h3>総報告件数</h3>
-                    <div class="stats-number">${reports.length}<span style="font-size:16px; color:#718096"> 件</span></div>
-                </div>
-
-                <div class="stats-row">
-                    <div class="stats-card">
-                        <h3>軽微</h3>
-                        <div class="stats-number" style="color:#48bb78">${severityCounts['軽微']}</div>
-                    </div>
-                    <div class="stats-card">
-                        <h3>要注意</h3>
-                        <div class="stats-number" style="color:#ecc94b">${severityCounts['要注意']}</div>
-                    </div>
-                    <div class="stats-card">
-                        <h3>重大</h3>
-                        <div class="stats-number" style="color:#e53e3e">${severityCounts['重大']}</div>
-                    </div>
-                </div>
-
-                <div class="stats-card">
-                    <h3>分類別の報告件数</h3>
-                    <div class="bar-chart">${categoryBars}</div>
-                </div>
-
-                <div class="stats-card">
-                    <h3>月別推移</h3>
-                    <div class="bar-chart">${monthBars || '<p style="color:#a0aec0; text-align:center;">データ不足</p>'}</div>
-                </div>
-            `;
         }
 
-        // ===== ユーティリティ =====
+        // ===================================================================
+        //  ユーティリティ
+        // ===================================================================
         function escapeHtml(str) {
             const div = document.createElement('div');
             div.textContent = str;
