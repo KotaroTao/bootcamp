@@ -2,7 +2,12 @@
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="ヒヤリハット">
+    <meta name="theme-color" content="#e53e3e">
+    <link rel="manifest" href="manifest.json">
     <title>ヒヤリハット報告アプリ - 歯科医院向け</title>
     <style>
         * {
@@ -669,6 +674,10 @@
             color: #2b6cb0;
             line-height: 1.6;
         }
+
+        /* セーフエリア対応（ノッチ付きスマホ） */
+        .header { padding-top: max(16px, env(safe-area-inset-top)); }
+        body { padding-bottom: env(safe-area-inset-bottom); }
     </style>
 </head>
 <body>
@@ -976,6 +985,109 @@
             </div>
 
         </div><!-- /wizard-block -->
+
+        <!-- ===== スマホで使う（GitHub Pages + ホーム画面追加） ===== -->
+        <div class="wizard-section" style="margin-top:24px; border: 2px solid #9f7aea;">
+            <div class="wizard-header" onclick="togglePublish('publish-github')">
+                <div class="step-number" style="background:#9f7aea; color:white;">&#128241;</div>
+                <div class="wizard-title">
+                    スマホからアクセスできるようにする
+                    <small>GitHub Pages（無料）で公開する方法</small>
+                </div>
+            </div>
+            <div class="wizard-body" id="publish-github">
+
+                <div class="tip-box">
+                    GitHub Pages を使うと、このアプリに<strong>スマホやタブレットからURLでアクセス</strong>できるようになります。完全無料です。
+                </div>
+
+                <h4 style="margin:16px 0 8px; color:#553c9a;">A. GitHub でリポジトリを作る</h4>
+                <ol>
+                    <li><a href="https://github.com/signup" target="_blank" rel="noopener" style="color:#4299e1;">github.com</a> でアカウントを作成（無料・既にあればログイン）</li>
+                    <li>右上の <strong>「+」</strong> → <strong>「New repository」</strong> をクリック</li>
+                    <li>設定：
+                        <ul style="list-style:none; padding-left:0; margin:8px 0;">
+                            <li>&#9745; Repository name: <strong>hiyari-hatto</strong>（好きな名前でOK）</li>
+                            <li>&#9745; Public を選択</li>
+                            <li>&#9745; 「Add a README file」にチェック</li>
+                        </ul>
+                    </li>
+                    <li><strong>「Create repository」</strong> をクリック</li>
+                </ol>
+
+                <h4 style="margin:16px 0 8px; color:#553c9a;">B. ファイルをアップロードする</h4>
+                <ol>
+                    <li>作成したリポジトリのページで <strong>「Add file」</strong> → <strong>「Upload files」</strong> をクリック</li>
+                    <li>以下の<strong>3つのファイル</strong>をドラッグ&ドロップ：
+                        <ul style="margin:8px 0;">
+                            <li><strong>index.html</strong>（このアプリ本体）</li>
+                            <li><strong>manifest.json</strong>（スマホ対応用）</li>
+                            <li><strong>sw.js</strong>（オフライン対応用）</li>
+                        </ul>
+                    </li>
+                    <li>下の <strong>「Commit changes」</strong> をクリック</li>
+                </ol>
+
+                <h4 style="margin:16px 0 8px; color:#553c9a;">C. GitHub Pages を有効にする</h4>
+                <ol>
+                    <li>リポジトリのページで <strong>「Settings」</strong>（&#9881; 歯車アイコン）をクリック</li>
+                    <li>左のメニューから <strong>「Pages」</strong> をクリック</li>
+                    <li>「Branch」のところで <strong>「main」</strong> を選択 → <strong>「Save」</strong></li>
+                    <li><strong>1〜2分待つ</strong>と、上部に公開URLが表示されます</li>
+                </ol>
+
+                <div class="visual-guide">
+                    公開URLの例：<br>
+                    <code style="background:#edf2f7; padding:4px 8px; border-radius:4px; font-size:14px;">
+                        https://あなたのユーザー名.github.io/hiyari-hatto/
+                    </code><br><br>
+                    このURLをスマホのブラウザで開けば、すぐに使えます！
+                </div>
+
+                <div class="notice-box">
+                    <strong>&#9888; 注意：</strong> リポジトリは「Public（公開）」にする必要があります。<br>
+                    HTMLのソースコードは見られますが、報告データ（スプレッドシート）は見られないので安全です。
+                </div>
+            </div>
+        </div>
+
+        <!-- ホーム画面に追加 -->
+        <div class="wizard-section" style="margin-top:12px; border: 2px solid #38a169;">
+            <div class="wizard-header" onclick="togglePublish('publish-homescreen')">
+                <div class="step-number" style="background:#38a169; color:white;">&#127968;</div>
+                <div class="wizard-title">
+                    ホーム画面に追加する（アプリ風に使う）
+                    <small>スマホのホーム画面にアイコンを置けます</small>
+                </div>
+            </div>
+            <div class="wizard-body" id="publish-homescreen">
+
+                <div class="tip-box">
+                    ホーム画面に追加すると、<strong>普通のアプリと同じようにアイコンから起動</strong>できます。アドレスバーも消えてスッキリ。
+                </div>
+
+                <h4 style="margin:16px 0 8px; color:#276749;">iPhone（Safari）の場合</h4>
+                <ol>
+                    <li>Safari でアプリのURLを開く</li>
+                    <li>画面下の <strong>共有ボタン</strong>（&#9650;が付いた四角いアイコン）をタップ</li>
+                    <li><strong>「ホーム画面に追加」</strong> をタップ</li>
+                    <li>名前を確認して <strong>「追加」</strong> をタップ</li>
+                </ol>
+
+                <h4 style="margin:16px 0 8px; color:#276749;">Android（Chrome）の場合</h4>
+                <ol>
+                    <li>Chrome でアプリのURLを開く</li>
+                    <li>右上の <strong>「&#8942;」（3点メニュー）</strong> をタップ</li>
+                    <li><strong>「ホーム画面に追加」</strong> または <strong>「アプリをインストール」</strong> をタップ</li>
+                    <li><strong>「追加」</strong> をタップ</li>
+                </ol>
+
+                <div class="visual-guide">
+                    追加すると、ホーム画面に<strong>「ヒヤリハット」</strong>のアイコンが表示されます。<br>
+                    タップするだけで、アドレスバーなしの全画面でアプリが開きます。
+                </div>
+            </div>
+        </div>
 
     </div><!-- /page-settings -->
 
@@ -1543,6 +1655,21 @@ function formatDate(value) {
             toast.textContent = message;
             toast.classList.add('show');
             setTimeout(() => toast.classList.remove('show'), 2500);
+        }
+
+        // ===================================================================
+        //  公開セクションの開閉
+        // ===================================================================
+        function togglePublish(id) {
+            const el = document.getElementById(id);
+            el.classList.toggle('open');
+        }
+
+        // ===================================================================
+        //  Service Worker 登録（PWA対応）
+        // ===================================================================
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('./sw.js').catch(() => {});
         }
     </script>
 </body>
