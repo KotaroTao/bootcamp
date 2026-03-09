@@ -40,9 +40,7 @@
             gap: 8px;
         }
 
-        .header-icon {
-            font-size: 24px;
-        }
+        .header-icon { font-size: 24px; }
 
         .connection-badge {
             font-size: 11px;
@@ -90,13 +88,11 @@
         .page {
             display: none;
             padding: 16px;
-            max-width: 600px;
+            max-width: 640px;
             margin: 0 auto;
         }
 
-        .page.active {
-            display: block;
-        }
+        .page.active { display: block; }
 
         /* ========== 設定バナー ========== */
         .setup-banner {
@@ -110,71 +106,30 @@
         .setup-banner h3 {
             font-size: 14px;
             color: #2b6cb0;
-            margin-bottom: 8px;
+            margin-bottom: 6px;
         }
 
         .setup-banner p {
             font-size: 13px;
             color: #4a5568;
-            margin-bottom: 12px;
             line-height: 1.5;
         }
 
-        .gas-url-input {
-            display: flex;
-            gap: 8px;
-        }
-
-        .gas-url-input input {
-            flex: 1;
-            padding: 10px 12px;
-            border: 2px solid #e2e8f0;
-            border-radius: 8px;
-            font-size: 14px;
-        }
-
-        .gas-url-input input:focus {
-            outline: none;
-            border-color: #4299e1;
-        }
-
-        .gas-url-input button {
-            padding: 10px 20px;
+        .setup-banner-link {
+            display: inline-block;
+            margin-top: 8px;
+            padding: 8px 16px;
             background: #4299e1;
             color: white;
             border: none;
-            border-radius: 8px;
-            font-size: 14px;
-            font-weight: 600;
-            cursor: pointer;
-            white-space: nowrap;
-        }
-
-        .setup-status {
-            margin-top: 8px;
-            font-size: 12px;
-            font-weight: 600;
-        }
-
-        .setup-status.success { color: #276749; }
-        .setup-status.error { color: #9b2c2c; }
-
-        .disconnect-btn {
-            margin-top: 8px;
-            padding: 6px 14px;
-            background: #fed7d7;
-            color: #9b2c2c;
-            border: none;
             border-radius: 6px;
-            font-size: 12px;
+            font-size: 13px;
             font-weight: 600;
             cursor: pointer;
         }
 
-        /* ========== 報告フォーム ========== */
-        .form-group {
-            margin-bottom: 20px;
-        }
+        /* ========== フォーム共通 ========== */
+        .form-group { margin-bottom: 20px; }
 
         .form-label {
             display: block;
@@ -215,18 +170,9 @@
         }
 
         /* 深刻度ラジオ */
-        .severity-options {
-            display: flex;
-            gap: 8px;
-        }
-
-        .severity-option {
-            flex: 1;
-        }
-
-        .severity-option input {
-            display: none;
-        }
+        .severity-options { display: flex; gap: 8px; }
+        .severity-option { flex: 1; }
+        .severity-option input { display: none; }
 
         .severity-option label {
             display: block;
@@ -241,21 +187,13 @@
         }
 
         .severity-option input:checked + label.severity-low {
-            background: #f0fff4;
-            border-color: #48bb78;
-            color: #276749;
+            background: #f0fff4; border-color: #48bb78; color: #276749;
         }
-
         .severity-option input:checked + label.severity-mid {
-            background: #fffff0;
-            border-color: #ecc94b;
-            color: #975a16;
+            background: #fffff0; border-color: #ecc94b; color: #975a16;
         }
-
         .severity-option input:checked + label.severity-high {
-            background: #fff5f5;
-            border-color: #fc8181;
-            color: #9b2c2c;
+            background: #fff5f5; border-color: #fc8181; color: #9b2c2c;
         }
 
         /* 匿名チェック */
@@ -270,15 +208,10 @@
         }
 
         .anonymous-check input {
-            width: 20px;
-            height: 20px;
-            accent-color: #e53e3e;
+            width: 20px; height: 20px; accent-color: #e53e3e;
         }
 
-        .anonymous-check span {
-            font-size: 14px;
-            font-weight: 500;
-        }
+        .anonymous-check span { font-size: 14px; font-weight: 500; }
 
         /* 送信ボタン */
         .submit-btn {
@@ -295,26 +228,15 @@
             box-shadow: 0 4px 12px rgba(229, 62, 62, 0.3);
         }
 
-        .submit-btn:active {
-            transform: scale(0.98);
-        }
-
-        .submit-btn:disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
-        }
+        .submit-btn:active { transform: scale(0.98); }
+        .submit-btn:disabled { opacity: 0.6; cursor: not-allowed; }
 
         /* ========== ローディング ========== */
-        .loading {
-            text-align: center;
-            padding: 40px;
-            color: #a0aec0;
-        }
+        .loading { text-align: center; padding: 40px; color: #a0aec0; }
 
         .spinner {
             display: inline-block;
-            width: 32px;
-            height: 32px;
+            width: 32px; height: 32px;
             border: 3px solid #e2e8f0;
             border-top-color: #e53e3e;
             border-radius: 50%;
@@ -322,9 +244,7 @@
             margin-bottom: 8px;
         }
 
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
+        @keyframes spin { to { transform: rotate(360deg); } }
 
         /* ========== 報告一覧 ========== */
         .report-card {
@@ -336,17 +256,9 @@
             border-left: 4px solid #e2e8f0;
         }
 
-        .report-card.severity-low-card {
-            border-left-color: #48bb78;
-        }
-
-        .report-card.severity-mid-card {
-            border-left-color: #ecc94b;
-        }
-
-        .report-card.severity-high-card {
-            border-left-color: #fc8181;
-        }
+        .report-card.severity-low-card  { border-left-color: #48bb78; }
+        .report-card.severity-mid-card  { border-left-color: #ecc94b; }
+        .report-card.severity-high-card { border-left-color: #fc8181; }
 
         .report-header {
             display: flex;
@@ -356,291 +268,406 @@
         }
 
         .report-category {
-            font-size: 12px;
-            font-weight: 700;
-            padding: 4px 10px;
-            border-radius: 20px;
-            background: #edf2f7;
-            color: #4a5568;
+            font-size: 12px; font-weight: 700;
+            padding: 4px 10px; border-radius: 20px;
+            background: #edf2f7; color: #4a5568;
         }
 
-        .report-date {
-            font-size: 12px;
-            color: #a0aec0;
-        }
+        .report-date { font-size: 12px; color: #a0aec0; }
 
         .report-content {
-            font-size: 14px;
-            line-height: 1.6;
-            color: #2d3748;
-            margin-bottom: 8px;
+            font-size: 14px; line-height: 1.6; color: #2d3748; margin-bottom: 8px;
         }
 
         .report-footer {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            font-size: 12px;
-            color: #a0aec0;
+            font-size: 12px; color: #a0aec0;
         }
 
         .severity-badge {
-            font-size: 11px;
-            font-weight: 700;
-            padding: 3px 8px;
-            border-radius: 4px;
+            font-size: 11px; font-weight: 700;
+            padding: 3px 8px; border-radius: 4px;
         }
 
-        .severity-badge.low {
-            background: #f0fff4;
-            color: #276749;
-        }
-
-        .severity-badge.mid {
-            background: #fffff0;
-            color: #975a16;
-        }
-
-        .severity-badge.high {
-            background: #fff5f5;
-            color: #9b2c2c;
-        }
+        .severity-badge.low  { background: #f0fff4; color: #276749; }
+        .severity-badge.mid  { background: #fffff0; color: #975a16; }
+        .severity-badge.high { background: #fff5f5; color: #9b2c2c; }
 
         .delete-btn {
-            background: none;
-            border: none;
-            color: #cbd5e0;
-            cursor: pointer;
-            font-size: 18px;
-            padding: 4px;
+            background: none; border: none; color: #cbd5e0;
+            cursor: pointer; font-size: 18px; padding: 4px;
             transition: color 0.2s;
         }
 
-        .delete-btn:hover {
-            color: #e53e3e;
-        }
+        .delete-btn:hover { color: #e53e3e; }
 
         .empty-state {
-            text-align: center;
-            padding: 60px 20px;
-            color: #a0aec0;
+            text-align: center; padding: 60px 20px; color: #a0aec0;
         }
 
-        .empty-state .icon {
-            font-size: 48px;
-            margin-bottom: 12px;
-        }
+        .empty-state .icon { font-size: 48px; margin-bottom: 12px; }
 
-        /* ========== 集計ページ ========== */
+        /* ========== 集計 ========== */
         .stats-card {
-            background: white;
-            border-radius: 12px;
-            padding: 20px;
-            margin-bottom: 16px;
+            background: white; border-radius: 12px;
+            padding: 20px; margin-bottom: 16px;
             box-shadow: 0 1px 4px rgba(0,0,0,0.08);
         }
 
-        .stats-card h3 {
-            font-size: 14px;
-            color: #718096;
-            margin-bottom: 12px;
-        }
+        .stats-card h3 { font-size: 14px; color: #718096; margin-bottom: 12px; }
 
-        .stats-number {
-            font-size: 36px;
-            font-weight: 800;
-            color: #e53e3e;
-        }
+        .stats-number { font-size: 36px; font-weight: 800; color: #e53e3e; }
 
-        .stats-row {
-            display: flex;
-            gap: 12px;
-            margin-bottom: 16px;
-        }
+        .stats-row { display: flex; gap: 12px; margin-bottom: 16px; }
+        .stats-row .stats-card { flex: 1; margin-bottom: 0; }
+        .stats-row .stats-number { font-size: 28px; }
 
-        .stats-row .stats-card {
-            flex: 1;
-            margin-bottom: 0;
-        }
-
-        .stats-row .stats-number {
-            font-size: 28px;
-        }
-
-        .bar-chart {
-            margin-top: 8px;
-        }
+        .bar-chart { margin-top: 8px; }
 
         .bar-item {
-            display: flex;
-            align-items: center;
-            margin-bottom: 10px;
-            gap: 10px;
+            display: flex; align-items: center;
+            margin-bottom: 10px; gap: 10px;
         }
 
         .bar-label {
-            width: 80px;
-            font-size: 13px;
-            font-weight: 500;
-            color: #4a5568;
-            text-align: right;
-            flex-shrink: 0;
+            width: 80px; font-size: 13px; font-weight: 500;
+            color: #4a5568; text-align: right; flex-shrink: 0;
         }
 
         .bar-track {
-            flex: 1;
-            height: 24px;
-            background: #edf2f7;
-            border-radius: 6px;
-            overflow: hidden;
+            flex: 1; height: 24px; background: #edf2f7;
+            border-radius: 6px; overflow: hidden;
         }
 
         .bar-fill {
-            height: 100%;
-            border-radius: 6px;
+            height: 100%; border-radius: 6px;
             transition: width 0.5s ease;
-            display: flex;
-            align-items: center;
-            padding-left: 8px;
-            font-size: 11px;
-            font-weight: 700;
-            color: white;
-            min-width: 30px;
+            display: flex; align-items: center;
+            padding-left: 8px; font-size: 11px;
+            font-weight: 700; color: white; min-width: 30px;
         }
 
         .bar-fill.cat-medication { background: #e53e3e; }
         .bar-fill.cat-instrument { background: #dd6b20; }
-        .bar-fill.cat-fall { background: #d69e2e; }
-        .bar-fill.cat-infection { background: #38a169; }
-        .bar-fill.cat-other { background: #718096; }
+        .bar-fill.cat-fall       { background: #d69e2e; }
+        .bar-fill.cat-infection  { background: #38a169; }
+        .bar-fill.cat-other      { background: #718096; }
 
-        /* ========== 成功メッセージ ========== */
+        /* ========== トースト ========== */
         .toast {
-            position: fixed;
-            bottom: 80px;
-            left: 50%;
+            position: fixed; bottom: 80px; left: 50%;
             transform: translateX(-50%) translateY(100px);
-            background: #276749;
-            color: white;
-            padding: 14px 28px;
-            border-radius: 10px;
-            font-size: 14px;
-            font-weight: 600;
+            background: #276749; color: white;
+            padding: 14px 28px; border-radius: 10px;
+            font-size: 14px; font-weight: 600;
             box-shadow: 0 4px 20px rgba(0,0,0,0.2);
-            transition: transform 0.3s ease;
-            z-index: 200;
+            transition: transform 0.3s ease; z-index: 200;
         }
 
-        .toast.show {
-            transform: translateX(-50%) translateY(0);
-        }
+        .toast.show { transform: translateX(-50%) translateY(0); }
 
         /* ========== 確認ダイアログ ========== */
         .dialog-overlay {
-            display: none;
-            position: fixed;
-            inset: 0;
-            background: rgba(0,0,0,0.5);
-            z-index: 300;
-            justify-content: center;
-            align-items: center;
+            display: none; position: fixed; inset: 0;
+            background: rgba(0,0,0,0.5); z-index: 300;
+            justify-content: center; align-items: center;
         }
 
-        .dialog-overlay.show {
-            display: flex;
-        }
+        .dialog-overlay.show { display: flex; }
 
         .dialog {
-            background: white;
-            border-radius: 16px;
-            padding: 24px;
-            width: 300px;
-            text-align: center;
+            background: white; border-radius: 16px;
+            padding: 24px; width: 300px; text-align: center;
         }
 
-        .dialog p {
-            font-size: 15px;
-            margin-bottom: 20px;
-            color: #4a5568;
-        }
+        .dialog p { font-size: 15px; margin-bottom: 20px; color: #4a5568; }
 
-        .dialog-buttons {
-            display: flex;
-            gap: 12px;
-        }
+        .dialog-buttons { display: flex; gap: 12px; }
 
         .dialog-btn {
-            flex: 1;
-            padding: 12px;
-            border: none;
-            border-radius: 8px;
-            font-size: 14px;
-            font-weight: 600;
+            flex: 1; padding: 12px; border: none;
+            border-radius: 8px; font-size: 14px;
+            font-weight: 600; cursor: pointer;
+        }
+
+        .dialog-btn.cancel { background: #edf2f7; color: #4a5568; }
+        .dialog-btn.confirm { background: #e53e3e; color: white; }
+
+        /* ========== セットアップウィザード ========== */
+        .wizard-section {
+            background: white;
+            border-radius: 12px;
+            margin-bottom: 16px;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+            overflow: hidden;
+        }
+
+        .wizard-section.connected-section {
+            border: 2px solid #48bb78;
+        }
+
+        .wizard-header {
+            padding: 16px 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
             cursor: pointer;
+            user-select: none;
         }
 
-        .dialog-btn.cancel {
-            background: #edf2f7;
-            color: #4a5568;
+        .wizard-header:hover { background: #f7fafc; }
+
+        .step-number {
+            width: 32px; height: 32px;
+            border-radius: 50%;
+            background: #e2e8f0;
+            color: #718096;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: 700;
+            flex-shrink: 0;
         }
 
-        .dialog-btn.confirm {
+        .step-number.done {
+            background: #48bb78;
+            color: white;
+        }
+
+        .step-number.current {
             background: #e53e3e;
             color: white;
         }
 
-        /* ========== 設定ページ ========== */
-        .settings-section {
-            background: white;
-            border-radius: 12px;
-            padding: 20px;
-            margin-bottom: 16px;
-            box-shadow: 0 1px 4px rgba(0,0,0,0.08);
-        }
-
-        .settings-section h3 {
+        .wizard-title {
             font-size: 15px;
             font-weight: 700;
             color: #2d3748;
-            margin-bottom: 12px;
         }
 
-        .settings-section p {
-            font-size: 13px;
-            color: #718096;
-            line-height: 1.6;
-            margin-bottom: 12px;
+        .wizard-title small {
+            display: block;
+            font-size: 12px;
+            font-weight: 400;
+            color: #a0aec0;
+            margin-top: 2px;
         }
 
-        .settings-section ol {
-            font-size: 13px;
+        .wizard-body {
+            display: none;
+            padding: 0 20px 20px;
+        }
+
+        .wizard-body.open { display: block; }
+
+        .wizard-body p,
+        .wizard-body li {
+            font-size: 14px;
             color: #4a5568;
-            line-height: 2;
+            line-height: 1.8;
+        }
+
+        .wizard-body ol {
             padding-left: 20px;
-            margin-bottom: 12px;
+            margin: 12px 0;
         }
 
-        .settings-connected {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            padding: 12px;
-            background: #f0fff4;
+        .wizard-body li {
+            margin-bottom: 4px;
+        }
+
+        .wizard-body strong {
+            color: #2d3748;
+        }
+
+        /* 画像風の説明ボックス */
+        .visual-guide {
+            background: #f7fafc;
+            border: 1px solid #e2e8f0;
             border-radius: 8px;
-            margin-bottom: 12px;
+            padding: 16px;
+            margin: 12px 0;
+            font-size: 13px;
+            line-height: 1.6;
         }
 
-        .settings-connected .dot {
-            width: 10px;
-            height: 10px;
-            background: #48bb78;
-            border-radius: 50%;
+        .visual-guide .menu-path {
+            display: inline-block;
+            background: #edf2f7;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-weight: 600;
+            font-size: 13px;
+            color: #2d3748;
         }
 
-        .settings-connected span {
+        .visual-guide .arrow {
+            color: #a0aec0;
+            margin: 0 4px;
+        }
+
+        /* コードコピーエリア */
+        .code-copy-area {
+            position: relative;
+            margin: 12px 0;
+        }
+
+        .code-block {
+            background: #1a202c;
+            color: #e2e8f0;
+            padding: 16px;
+            border-radius: 8px;
+            font-family: "SF Mono", "Fira Code", monospace;
+            font-size: 12px;
+            line-height: 1.5;
+            max-height: 200px;
+            overflow-y: auto;
+            white-space: pre-wrap;
+            word-break: break-all;
+        }
+
+        .copy-btn {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            padding: 8px 16px;
+            background: #4299e1;
+            color: white;
+            border: none;
+            border-radius: 6px;
             font-size: 13px;
             font-weight: 600;
+            cursor: pointer;
+            z-index: 2;
+            transition: background 0.2s;
+        }
+
+        .copy-btn:hover { background: #3182ce; }
+        .copy-btn.copied { background: #48bb78; }
+
+        /* URL入力エリア */
+        .url-input-area {
+            margin-top: 12px;
+        }
+
+        .url-input-row {
+            display: flex;
+            gap: 8px;
+            margin-top: 8px;
+        }
+
+        .url-input-row input {
+            flex: 1;
+            padding: 12px;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 14px;
+        }
+
+        .url-input-row input:focus {
+            outline: none;
+            border-color: #4299e1;
+        }
+
+        .url-input-row button {
+            padding: 12px 24px;
+            background: #48bb78;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            white-space: nowrap;
+        }
+
+        .url-input-row button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .connect-result {
+            margin-top: 8px;
+            padding: 10px 14px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            display: none;
+        }
+
+        .connect-result.success {
+            display: block;
+            background: #f0fff4;
             color: #276749;
+            border: 1px solid #c6f6d5;
+        }
+
+        .connect-result.error {
+            display: block;
+            background: #fff5f5;
+            color: #9b2c2c;
+            border: 1px solid #fed7d7;
+        }
+
+        /* 接続済み表示 */
+        .connected-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 16px;
+            background: #f0fff4;
+            border-radius: 10px;
+            margin-bottom: 16px;
+        }
+
+        .connected-info .dot {
+            width: 12px; height: 12px;
+            background: #48bb78;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        .connected-info .text {
+            font-size: 14px;
+            font-weight: 600;
+            color: #276749;
+        }
+
+        .disconnect-btn {
+            padding: 10px 20px;
+            background: #fed7d7;
+            color: #9b2c2c;
+            border: none;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        /* 注意ボックス */
+        .notice-box {
+            background: #fffff0;
+            border: 1px solid #fefcbf;
+            border-radius: 8px;
+            padding: 12px 16px;
+            margin: 12px 0;
+            font-size: 13px;
+            color: #975a16;
+            line-height: 1.6;
+        }
+
+        .tip-box {
+            background: #ebf8ff;
+            border: 1px solid #bee3f8;
+            border-radius: 8px;
+            padding: 12px 16px;
+            margin: 12px 0;
+            font-size: 13px;
+            color: #2b6cb0;
+            line-height: 1.6;
         }
     </style>
 </head>
@@ -665,10 +692,10 @@
 
     <!-- ===== 報告ページ ===== -->
     <div id="page-report" class="page active">
-        <!-- GAS未設定時の案内バナー -->
         <div id="setup-banner" class="setup-banner">
-            <h3>&#128279; スプレッドシートに接続しよう</h3>
-            <p>Google スプレッドシートと連携すると、報告データをチーム全員で共有できます。<br>「設定」タブから接続してください。接続しなくてもローカルで使えます。</p>
+            <h3>&#128279; スプレッドシートに接続すると、全員でデータを共有できます</h3>
+            <p>接続しなくても、このブラウザ内だけで使えます。</p>
+            <button class="setup-banner-link" onclick="switchTab('settings')">設定画面へ</button>
         </div>
 
         <form id="report-form">
@@ -746,35 +773,211 @@
         <div id="stats-content"></div>
     </div>
 
-    <!-- ===== 設定ページ ===== -->
+    <!-- ===== 設定ページ（ウィザード形式） ===== -->
     <div id="page-settings" class="page">
-        <div class="settings-section">
-            <h3>&#9989; Google スプレッドシート連携</h3>
-            <div id="settings-status"></div>
-            <div id="settings-form">
-                <p>スプレッドシートと連携すると、報告データがリアルタイムで共有されます。</p>
-                <ol>
-                    <li>Google スプレッドシートを新規作成</li>
-                    <li>「拡張機能」→「Apps Script」を開く</li>
-                    <li><code>gas/Code.gs</code> のコードを貼り付けて保存</li>
-                    <li>関数 <code>initSheet</code> を実行（初回のみ）</li>
-                    <li>「デプロイ」→「新しいデプロイ」→「ウェブアプリ」<br>
-                        アクセスできるユーザー：「全員」に設定</li>
-                    <li>表示されたURLを下に貼り付け</li>
-                </ol>
-                <div class="gas-url-input">
-                    <input type="url" id="gas-url" placeholder="https://script.google.com/macros/s/..." >
-                    <button type="button" id="connect-btn">接続</button>
-                </div>
-                <div id="connect-status" class="setup-status"></div>
+
+        <!-- 接続済みの場合の表示 -->
+        <div id="connected-block" style="display:none;">
+            <div class="connected-info">
+                <div class="dot"></div>
+                <span class="text">Google スプレッドシートに接続中</span>
+            </div>
+            <button class="disconnect-btn" id="disconnect-btn">接続を解除する</button>
+            <div class="tip-box" style="margin-top:16px;">
+                他の端末（スマホ・PC）でもこのアプリを開き、同じURLを「設定」で入力すれば、データを共有できます。
             </div>
         </div>
 
-        <div class="settings-section">
-            <h3>&#128190; データについて</h3>
-            <p id="data-info"></p>
-        </div>
-    </div>
+        <!-- 未接続の場合のウィザード -->
+        <div id="wizard-block">
+
+            <!-- Step 1 -->
+            <div class="wizard-section" data-step="1">
+                <div class="wizard-header" onclick="toggleStep(1)">
+                    <div class="step-number current" id="step-num-1">1</div>
+                    <div class="wizard-title">
+                        Google スプレッドシートを作る
+                        <small>新しいスプレッドシートを1つ作るだけ</small>
+                    </div>
+                </div>
+                <div class="wizard-body open" id="step-body-1">
+                    <ol>
+                        <li>下のボタンで <strong>Google スプレッドシート</strong> を開きます</li>
+                        <li>左上の <strong>「空白のスプレッドシート」</strong>（＋マーク）をクリック</li>
+                        <li>名前を <strong>「ヒヤリハット報告」</strong> などに変更<br>
+                            <span style="color:#a0aec0;">（左上の「無題のスプレッドシート」をクリックすると変更できます）</span>
+                        </li>
+                    </ol>
+
+                    <a href="https://sheets.google.com" target="_blank" rel="noopener"
+                       style="display:inline-block; padding:10px 20px; background:#0f9d58; color:white; border-radius:8px; text-decoration:none; font-weight:600; font-size:14px;">
+                        Google スプレッドシートを開く &#8599;
+                    </a>
+
+                    <div class="notice-box">
+                        Googleアカウントにログインしている必要があります。<br>
+                        医院で使う場合は、<strong>医院用のGoogleアカウント</strong>で作ることをおすすめします。
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 2 -->
+            <div class="wizard-section" data-step="2">
+                <div class="wizard-header" onclick="toggleStep(2)">
+                    <div class="step-number" id="step-num-2">2</div>
+                    <div class="wizard-title">
+                        Apps Script を開く
+                        <small>スプレッドシートの中から開けます</small>
+                    </div>
+                </div>
+                <div class="wizard-body" id="step-body-2">
+                    <p>作ったスプレッドシートの画面で：</p>
+
+                    <div class="visual-guide">
+                        画面上部のメニューから<br>
+                        <span class="menu-path">拡張機能</span>
+                        <span class="arrow">&rarr;</span>
+                        <span class="menu-path">Apps Script</span>
+                        <br>をクリック
+                    </div>
+
+                    <p>新しいタブが開いて、コード編集画面が表示されます。</p>
+
+                    <div class="tip-box">
+                        最初から <code>function myFunction()</code> というコードが書いてありますが、このあと全部書き換えるので気にしなくてOKです。
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 3 -->
+            <div class="wizard-section" data-step="3">
+                <div class="wizard-header" onclick="toggleStep(3)">
+                    <div class="step-number" id="step-num-3">3</div>
+                    <div class="wizard-title">
+                        コードを貼り付ける
+                        <small>下のコードをコピーして貼り付けるだけ</small>
+                    </div>
+                </div>
+                <div class="wizard-body" id="step-body-3">
+                    <ol>
+                        <li>Apps Script の画面で、最初から書いてあるコードを<strong>全部選択して削除</strong><br>
+                            <span style="color:#a0aec0;">（Ctrl+A → Delete、またはMacなら Cmd+A → Delete）</span></li>
+                        <li>下の <strong>「コードをコピー」</strong> ボタンを押す</li>
+                        <li>Apps Script の画面に <strong>貼り付け</strong>（Ctrl+V または Cmd+V）</li>
+                        <li>左上の <strong>保存ボタン（&#128190;）</strong> をクリック<br>
+                            <span style="color:#a0aec0;">（または Ctrl+S / Cmd+S）</span></li>
+                    </ol>
+
+                    <div class="code-copy-area">
+                        <button class="copy-btn" id="copy-gas-btn" onclick="copyGasCode()">コードをコピー</button>
+                        <div class="code-block" id="gas-code-display"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 4 -->
+            <div class="wizard-section" data-step="4">
+                <div class="wizard-header" onclick="toggleStep(4)">
+                    <div class="step-number" id="step-num-4">4</div>
+                    <div class="wizard-title">
+                        初期設定を実行する
+                        <small>ボタンを1回押すだけ</small>
+                    </div>
+                </div>
+                <div class="wizard-body" id="step-body-4">
+                    <ol>
+                        <li>Apps Script 画面の上部にある関数選択（「myFunction」と書いてある部分）をクリック</li>
+                        <li>リストから <strong>「initSheet」</strong> を選ぶ</li>
+                        <li>左の <strong>「実行」ボタン（&#9654;）</strong> をクリック</li>
+                    </ol>
+
+                    <div class="notice-box">
+                        <strong>&#9888; 初回は「権限の承認」画面が出ます。以下の手順で許可してください：</strong><br><br>
+                        1. 「権限を確認」をクリック<br>
+                        2. 自分の Google アカウントを選択<br>
+                        3. 「詳細」をクリック<br>
+                        4. 「〇〇（安全ではないページ）に移動」をクリック<br>
+                        5. 「許可」をクリック
+                    </div>
+
+                    <div class="tip-box">
+                        成功すると、スプレッドシートに <strong>「報告データ」</strong> というシートが追加され、ヘッダー行が自動で作られます。
+                        スプレッドシートのタブを確認してみてください。
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 5 -->
+            <div class="wizard-section" data-step="5">
+                <div class="wizard-header" onclick="toggleStep(5)">
+                    <div class="step-number" id="step-num-5">5</div>
+                    <div class="wizard-title">
+                        ウェブアプリとして公開する
+                        <small>外部からアクセスできるようにします</small>
+                    </div>
+                </div>
+                <div class="wizard-body" id="step-body-5">
+                    <p>Apps Script の画面で：</p>
+
+                    <div class="visual-guide">
+                        画面右上の<br>
+                        <span class="menu-path">デプロイ</span>
+                        <span class="arrow">&rarr;</span>
+                        <span class="menu-path">新しいデプロイ</span>
+                        <br>をクリック
+                    </div>
+
+                    <ol>
+                        <li>左上の歯車アイコン（&#9881;）をクリック →「<strong>ウェブアプリ</strong>」を選択</li>
+                        <li>設定を以下のようにする：
+                            <ul style="list-style: none; padding-left: 0; margin: 8px 0;">
+                                <li>&#9745; 説明：<strong>ヒヤリハット報告</strong>（なんでもOK）</li>
+                                <li>&#9745; 実行するユーザー：<strong>自分</strong></li>
+                                <li>&#9745; アクセスできるユーザー：<strong style="color:#e53e3e">全員</strong>
+                                    <span style="color:#a0aec0;">← ここが重要！</span></li>
+                            </ul>
+                        </li>
+                        <li><strong>「デプロイ」</strong> ボタンをクリック</li>
+                        <li>表示された <strong>URL をコピー</strong>（&#128203;アイコンでコピーできます）</li>
+                    </ol>
+
+                    <div class="notice-box">
+                        URLは <code>https://script.google.com/macros/s/xxxxx/exec</code> という形式です。<br>
+                        このURLを次のステップで使います。
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 6 -->
+            <div class="wizard-section" data-step="6">
+                <div class="wizard-header" onclick="toggleStep(6)">
+                    <div class="step-number" id="step-num-6">6</div>
+                    <div class="wizard-title">
+                        URLを貼り付けて接続する
+                        <small>これで完了です！</small>
+                    </div>
+                </div>
+                <div class="wizard-body" id="step-body-6">
+                    <p>Step 5 でコピーしたURLを下に貼り付けて、「接続する」を押してください。</p>
+
+                    <div class="url-input-area">
+                        <div class="url-input-row">
+                            <input type="url" id="gas-url" placeholder="https://script.google.com/macros/s/...">
+                            <button type="button" id="connect-btn">接続する</button>
+                        </div>
+                        <div id="connect-result" class="connect-result"></div>
+                    </div>
+
+                    <div class="tip-box" style="margin-top:16px;">
+                        <strong>他のスマホ・PCでも使うには：</strong><br>
+                        このアプリ（HTMLファイル）を他の端末でも開き、同じURLを貼り付ければ、全員のデータがスプレッドシートに集まります。
+                    </div>
+                </div>
+            </div>
+
+        </div><!-- /wizard-block -->
+
+    </div><!-- /page-settings -->
 
     <!-- トースト -->
     <div id="toast" class="toast"></div>
@@ -792,24 +995,121 @@
 
     <script>
         // ===================================================================
+        //  GAS コード（アプリ内にも保持してコピー可能にする）
+        // ===================================================================
+        const GAS_CODE = `function initSheet() {
+  var ss = SpreadsheetApp.getActiveSpreadsheet();
+  var sheet = ss.getSheetByName('報告データ');
+  if (!sheet) {
+    sheet = ss.insertSheet('報告データ');
+  }
+  var headers = ['ID', '発生日時', '分類', '内容', '深刻度', '報告者', '報告日時'];
+  sheet.getRange(1, 1, 1, headers.length).setValues([headers]);
+  var headerRange = sheet.getRange(1, 1, 1, headers.length);
+  headerRange.setFontWeight('bold');
+  headerRange.setBackground('#e53e3e');
+  headerRange.setFontColor('#ffffff');
+  sheet.setColumnWidth(1, 140);
+  sheet.setColumnWidth(2, 160);
+  sheet.setColumnWidth(3, 80);
+  sheet.setColumnWidth(4, 400);
+  sheet.setColumnWidth(5, 80);
+  sheet.setColumnWidth(6, 100);
+  sheet.setColumnWidth(7, 160);
+  sheet.setFrozenRows(1);
+}
+
+function doGet(e) {
+  try {
+    var sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName('報告データ');
+    if (!sheet) return createJsonResponse({ success: false, error: 'シートが見つかりません' });
+    var lastRow = sheet.getLastRow();
+    if (lastRow <= 1) return createJsonResponse({ success: true, reports: [] });
+    var data = sheet.getRange(2, 1, lastRow - 1, 7).getValues();
+    var reports = data.map(function(row) {
+      return {
+        id: String(row[0]),
+        datetime: formatDate(row[1]),
+        category: row[2],
+        content: row[3],
+        severity: row[4],
+        reporter: row[5],
+        createdAt: formatDate(row[6])
+      };
+    });
+    reports.reverse();
+    return createJsonResponse({ success: true, reports: reports });
+  } catch (err) {
+    return createJsonResponse({ success: false, error: err.message });
+  }
+}
+
+function doPost(e) {
+  try {
+    var params = JSON.parse(e.postData.contents);
+    var action = params.action || 'add';
+    if (action === 'add') return addReport(params);
+    if (action === 'delete') return deleteReport(params.id);
+    return createJsonResponse({ success: false, error: '不明なアクション' });
+  } catch (err) {
+    return createJsonResponse({ success: false, error: err.message });
+  }
+}
+
+function addReport(params) {
+  var sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName('報告データ');
+  if (!sheet) return createJsonResponse({ success: false, error: 'シートが見つかりません' });
+  var id = String(params.id || Date.now());
+  sheet.appendRow([id, params.datetime || '', params.category || '', params.content || '', params.severity || '', params.reporter || '未記入', new Date()]);
+  var lastRow = sheet.getLastRow();
+  var rowRange = sheet.getRange(lastRow, 1, 1, 7);
+  if (params.severity === '重大') rowRange.setBackground('#fff5f5');
+  else if (params.severity === '要注意') rowRange.setBackground('#fffff0');
+  return createJsonResponse({ success: true, id: id });
+}
+
+function deleteReport(targetId) {
+  var sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName('報告データ');
+  if (!sheet) return createJsonResponse({ success: false, error: 'シートが見つかりません' });
+  var lastRow = sheet.getLastRow();
+  for (var i = lastRow; i >= 2; i--) {
+    if (String(sheet.getRange(i, 1).getValue()) === String(targetId)) {
+      sheet.deleteRow(i);
+      return createJsonResponse({ success: true });
+    }
+  }
+  return createJsonResponse({ success: false, error: '該当する報告が見つかりません' });
+}
+
+function createJsonResponse(data) {
+  return ContentService.createTextOutput(JSON.stringify(data)).setMimeType(ContentService.MimeType.JSON);
+}
+
+function formatDate(value) {
+  if (!value) return '';
+  if (value instanceof Date) {
+    var y = value.getFullYear();
+    var m = String(value.getMonth() + 1).padStart(2, '0');
+    var d = String(value.getDate()).padStart(2, '0');
+    var h = String(value.getHours()).padStart(2, '0');
+    var min = String(value.getMinutes()).padStart(2, '0');
+    return y + '-' + m + '-' + d + 'T' + h + ':' + min;
+  }
+  return String(value);
+}`;
+
+        // ===================================================================
         //  設定
         // ===================================================================
         const STORAGE_KEY = 'hiyari_hatto_reports';
         const GAS_URL_KEY = 'hiyari_hatto_gas_url';
 
-        function getGasUrl() {
-            return localStorage.getItem(GAS_URL_KEY) || '';
-        }
-
-        function isConnected() {
-            return !!getGasUrl();
-        }
+        function getGasUrl() { return localStorage.getItem(GAS_URL_KEY) || ''; }
+        function isConnected() { return !!getGasUrl(); }
 
         // ===================================================================
         //  データ管理（ローカル / スプレッドシート 両対応）
         // ===================================================================
-
-        // --- ローカル ---
         function getLocalReports() {
             const data = localStorage.getItem(STORAGE_KEY);
             return data ? JSON.parse(data) : [];
@@ -819,18 +1119,15 @@
             localStorage.setItem(STORAGE_KEY, JSON.stringify(reports));
         }
 
-        // --- スプレッドシート ---
         async function fetchRemoteReports() {
-            const url = getGasUrl();
-            const res = await fetch(url);
+            const res = await fetch(getGasUrl());
             const data = await res.json();
             if (!data.success) throw new Error(data.error || '取得に失敗しました');
             return data.reports || [];
         }
 
         async function addRemoteReport(report) {
-            const url = getGasUrl();
-            const res = await fetch(url, {
+            const res = await fetch(getGasUrl(), {
                 method: 'POST',
                 headers: { 'Content-Type': 'text/plain' },
                 body: JSON.stringify({ action: 'add', ...report })
@@ -841,8 +1138,7 @@
         }
 
         async function deleteRemoteReport(id) {
-            const url = getGasUrl();
-            const res = await fetch(url, {
+            const res = await fetch(getGasUrl(), {
                 method: 'POST',
                 headers: { 'Content-Type': 'text/plain' },
                 body: JSON.stringify({ action: 'delete', id: String(id) })
@@ -852,11 +1148,8 @@
             return data;
         }
 
-        // --- 統合 API ---
         async function getReports() {
-            if (isConnected()) {
-                return await fetchRemoteReports();
-            }
+            if (isConnected()) return await fetchRemoteReports();
             return getLocalReports();
         }
 
@@ -870,7 +1163,7 @@
             }
         }
 
-        async function deleteReport(id) {
+        async function deleteReportById(id) {
             if (isConnected()) {
                 await deleteRemoteReport(id);
             } else {
@@ -881,11 +1174,14 @@
         }
 
         // ===================================================================
-        //  UI 初期化
+        //  初期化
         // ===================================================================
         document.addEventListener('DOMContentLoaded', () => {
             setCurrentDateTime();
             updateConnectionUI();
+
+            // GASコード表示
+            document.getElementById('gas-code-display').textContent = GAS_CODE;
 
             // 匿名チェック
             document.getElementById('anonymous').addEventListener('change', (e) => {
@@ -916,7 +1212,7 @@
             // GAS接続
             document.getElementById('connect-btn').addEventListener('click', handleConnect);
 
-            // URLフィールドに既存値を表示
+            // URL入力欄に既存値を表示
             document.getElementById('gas-url').value = getGasUrl();
         });
 
@@ -927,38 +1223,85 @@
             document.getElementById('datetime').value = local.toISOString().slice(0, 16);
         }
 
+        // ===================================================================
+        //  接続UI更新
+        // ===================================================================
         function updateConnectionUI() {
             const badge = document.getElementById('connection-badge');
             const banner = document.getElementById('setup-banner');
-            const dataInfo = document.getElementById('data-info');
-            const statusEl = document.getElementById('settings-status');
+            const connectedBlock = document.getElementById('connected-block');
+            const wizardBlock = document.getElementById('wizard-block');
 
             if (isConnected()) {
                 badge.textContent = 'スプレッドシート連携中';
                 badge.className = 'connection-badge online';
                 banner.style.display = 'none';
-                dataInfo.textContent = 'データは Google スプレッドシートに保存されています。スプレッドシートを直接開いて確認・編集することもできます。';
-                statusEl.innerHTML = `
-                    <div class="settings-connected">
-                        <div class="dot"></div>
-                        <span>スプレッドシートに接続済み</span>
-                    </div>
-                    <button type="button" class="disconnect-btn" id="disconnect-btn">接続を解除</button>
-                `;
-                document.getElementById('disconnect-btn').addEventListener('click', () => {
+                connectedBlock.style.display = 'block';
+                wizardBlock.style.display = 'none';
+
+                // 接続解除ボタン
+                document.getElementById('disconnect-btn').onclick = () => {
                     localStorage.removeItem(GAS_URL_KEY);
                     document.getElementById('gas-url').value = '';
-                    document.getElementById('connect-status').textContent = '';
+                    document.getElementById('connect-result').className = 'connect-result';
+                    document.getElementById('connect-result').textContent = '';
                     updateConnectionUI();
                     showToast('接続を解除しました');
-                });
+                };
             } else {
                 badge.textContent = 'ローカル保存';
                 badge.className = 'connection-badge offline';
                 banner.style.display = 'block';
-                dataInfo.textContent = 'データはこのブラウザの localStorage に保存されています。別の端末からはアクセスできません。';
-                statusEl.innerHTML = '';
+                connectedBlock.style.display = 'none';
+                wizardBlock.style.display = 'block';
             }
+        }
+
+        // ===================================================================
+        //  ウィザードのステップ開閉
+        // ===================================================================
+        function toggleStep(n) {
+            const body = document.getElementById(`step-body-${n}`);
+            const isOpen = body.classList.contains('open');
+
+            // 全部閉じる
+            for (let i = 1; i <= 6; i++) {
+                document.getElementById(`step-body-${i}`).classList.remove('open');
+            }
+
+            // クリックしたものが閉じていたら開く
+            if (!isOpen) {
+                body.classList.add('open');
+            }
+        }
+
+        // ===================================================================
+        //  GASコードコピー
+        // ===================================================================
+        function copyGasCode() {
+            const btn = document.getElementById('copy-gas-btn');
+            navigator.clipboard.writeText(GAS_CODE).then(() => {
+                btn.textContent = 'コピーしました！';
+                btn.classList.add('copied');
+                setTimeout(() => {
+                    btn.textContent = 'コードをコピー';
+                    btn.classList.remove('copied');
+                }, 2000);
+            }).catch(() => {
+                // フォールバック：テキストエリアでコピー
+                const ta = document.createElement('textarea');
+                ta.value = GAS_CODE;
+                document.body.appendChild(ta);
+                ta.select();
+                document.execCommand('copy');
+                document.body.removeChild(ta);
+                btn.textContent = 'コピーしました！';
+                btn.classList.add('copied');
+                setTimeout(() => {
+                    btn.textContent = 'コードをコピー';
+                    btn.classList.remove('copied');
+                }, 2000);
+            });
         }
 
         // ===================================================================
@@ -966,19 +1309,26 @@
         // ===================================================================
         async function handleConnect() {
             const urlInput = document.getElementById('gas-url');
-            const statusEl = document.getElementById('connect-status');
+            const resultEl = document.getElementById('connect-result');
             const btn = document.getElementById('connect-btn');
             const url = urlInput.value.trim();
 
             if (!url) {
-                statusEl.textContent = 'URLを入力してください';
-                statusEl.className = 'setup-status error';
+                resultEl.textContent = 'URLを入力してください';
+                resultEl.className = 'connect-result error';
+                return;
+            }
+
+            if (!url.startsWith('https://script.google.com/')) {
+                resultEl.textContent = 'URLが正しくありません。「https://script.google.com/macros/s/...」で始まるURLを入力してください';
+                resultEl.className = 'connect-result error';
                 return;
             }
 
             btn.disabled = true;
-            btn.textContent = '接続中...';
-            statusEl.textContent = '';
+            btn.textContent = '接続テスト中...';
+            resultEl.className = 'connect-result';
+            resultEl.textContent = '';
 
             try {
                 const res = await fetch(url);
@@ -986,19 +1336,19 @@
 
                 if (data.success !== undefined) {
                     localStorage.setItem(GAS_URL_KEY, url);
-                    statusEl.textContent = '接続に成功しました！';
-                    statusEl.className = 'setup-status success';
+                    resultEl.textContent = '接続に成功しました！スプレッドシートとの連携が完了しました。';
+                    resultEl.className = 'connect-result success';
                     updateConnectionUI();
                     showToast('スプレッドシートに接続しました');
                 } else {
                     throw new Error('レスポンス形式が不正です');
                 }
             } catch (err) {
-                statusEl.textContent = '接続に失敗しました: ' + err.message;
-                statusEl.className = 'setup-status error';
+                resultEl.innerHTML = '接続に失敗しました。<br>以下を確認してください：<br>・URLが正しいか<br>・デプロイ時「アクセスできるユーザー」を「全員」にしたか<br>・initSheet を実行したか';
+                resultEl.className = 'connect-result error';
             } finally {
                 btn.disabled = false;
-                btn.textContent = '接続';
+                btn.textContent = '接続する';
             }
         }
 
@@ -1008,10 +1358,8 @@
         function switchTab(tabName) {
             document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
             document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-
             document.querySelector(`.tab[data-tab="${tabName}"]`).classList.add('active');
             document.getElementById(`page-${tabName}`).classList.add('active');
-
             if (tabName === 'list') renderList();
             if (tabName === 'stats') renderStats();
         }
@@ -1023,10 +1371,7 @@
             e.preventDefault();
 
             const severity = document.querySelector('input[name="severity"]:checked');
-            if (!severity) {
-                alert('深刻度を選択してください');
-                return;
-            }
+            if (!severity) { alert('深刻度を選択してください'); return; }
 
             const submitBtn = document.getElementById('submit-btn');
             submitBtn.disabled = true;
@@ -1046,15 +1391,11 @@
 
             try {
                 await addReport(report);
-
-                // フォームリセット
                 e.target.reset();
                 setCurrentDateTime();
                 document.getElementById('reporter').disabled = false;
                 document.getElementById('reporter').placeholder = '氏名';
-
-                const dest = isConnected() ? 'スプレッドシートに送信しました' : '報告を保存しました';
-                showToast(dest);
+                showToast(isConnected() ? 'スプレッドシートに送信しました' : '報告を保存しました');
             } catch (err) {
                 showToast('エラー: ' + err.message);
             } finally {
@@ -1064,7 +1405,7 @@
         }
 
         // ===================================================================
-        //  一覧表示
+        //  一覧
         // ===================================================================
         async function renderList() {
             const container = document.getElementById('report-list');
@@ -1072,14 +1413,8 @@
 
             try {
                 const reports = await getReports();
-
                 if (reports.length === 0) {
-                    container.innerHTML = `
-                        <div class="empty-state">
-                            <div class="icon">&#128203;</div>
-                            <p>まだ報告がありません</p>
-                        </div>
-                    `;
+                    container.innerHTML = '<div class="empty-state"><div class="icon">&#128203;</div><p>まだ報告がありません</p></div>';
                     return;
                 }
 
@@ -1088,7 +1423,6 @@
                     const cardClass = r.severity === '軽微' ? 'severity-low-card' : r.severity === '要注意' ? 'severity-mid-card' : 'severity-high-card';
                     const date = new Date(r.datetime);
                     const dateStr = isNaN(date.getTime()) ? r.datetime : `${date.getMonth() + 1}/${date.getDate()} ${String(date.getHours()).padStart(2, '0')}:${String(date.getMinutes()).padStart(2, '0')}`;
-
                     return `
                         <div class="report-card ${cardClass}">
                             <div class="report-header">
@@ -1105,13 +1439,7 @@
                     `;
                 }).join('');
             } catch (err) {
-                container.innerHTML = `
-                    <div class="empty-state">
-                        <div class="icon">&#9888;</div>
-                        <p>データの取得に失敗しました</p>
-                        <p style="font-size:12px; margin-top:8px;">${escapeHtml(err.message)}</p>
-                    </div>
-                `;
+                container.innerHTML = `<div class="empty-state"><div class="icon">&#9888;</div><p>データの取得に失敗しました</p><p style="font-size:12px; margin-top:8px;">${escapeHtml(err.message)}</p></div>`;
             }
         }
 
@@ -1128,7 +1456,7 @@
         document.getElementById('delete-confirm').addEventListener('click', async () => {
             if (deleteTargetId !== null) {
                 try {
-                    await deleteReport(deleteTargetId);
+                    await deleteReportById(deleteTargetId);
                     deleteTargetId = null;
                     document.getElementById('delete-dialog').classList.remove('show');
                     renderList();
@@ -1149,50 +1477,26 @@
 
             try {
                 const reports = await getReports();
-
                 if (reports.length === 0) {
-                    container.innerHTML = `
-                        <div class="empty-state">
-                            <div class="icon">&#128202;</div>
-                            <p>データがありません</p>
-                        </div>
-                    `;
+                    container.innerHTML = '<div class="empty-state"><div class="icon">&#128202;</div><p>データがありません</p></div>';
                     return;
                 }
 
-                // 深刻度別カウント
                 const severityCounts = { '軽微': 0, '要注意': 0, '重大': 0 };
                 reports.forEach(r => { severityCounts[r.severity] = (severityCounts[r.severity] || 0) + 1; });
 
-                // 分類別カウント
                 const categoryCounts = {};
                 reports.forEach(r => { categoryCounts[r.category] = (categoryCounts[r.category] || 0) + 1; });
                 const maxCatCount = Math.max(...Object.values(categoryCounts));
 
-                const catColors = {
-                    '投薬': 'cat-medication',
-                    '器具': 'cat-instrument',
-                    '転倒': 'cat-fall',
-                    '感染対策': 'cat-infection',
-                    'その他': 'cat-other'
-                };
-
+                const catColors = { '投薬': 'cat-medication', '器具': 'cat-instrument', '転倒': 'cat-fall', '感染対策': 'cat-infection', 'その他': 'cat-other' };
                 const categoryBars = Object.entries(categoryCounts)
                     .sort((a, b) => b[1] - a[1])
                     .map(([cat, count]) => {
                         const pct = Math.round((count / maxCatCount) * 100);
-                        const colorClass = catColors[cat] || 'cat-other';
-                        return `
-                            <div class="bar-item">
-                                <span class="bar-label">${escapeHtml(cat)}</span>
-                                <div class="bar-track">
-                                    <div class="bar-fill ${colorClass}" style="width: ${pct}%">${count}件</div>
-                                </div>
-                            </div>
-                        `;
+                        return `<div class="bar-item"><span class="bar-label">${escapeHtml(cat)}</span><div class="bar-track"><div class="bar-fill ${catColors[cat] || 'cat-other'}" style="width:${pct}%">${count}件</div></div></div>`;
                     }).join('');
 
-                // 月別推移
                 const monthCounts = {};
                 reports.forEach(r => {
                     const d = new Date(r.datetime);
@@ -1207,55 +1511,21 @@
                     .slice(-6)
                     .map(([month, count]) => {
                         const pct = Math.round((count / maxMonthCount) * 100);
-                        return `
-                            <div class="bar-item">
-                                <span class="bar-label">${month}</span>
-                                <div class="bar-track">
-                                    <div class="bar-fill cat-medication" style="width: ${pct}%">${count}件</div>
-                                </div>
-                            </div>
-                        `;
+                        return `<div class="bar-item"><span class="bar-label">${month}</span><div class="bar-track"><div class="bar-fill cat-medication" style="width:${pct}%">${count}件</div></div></div>`;
                     }).join('');
 
                 container.innerHTML = `
-                    <div class="stats-card">
-                        <h3>総報告件数</h3>
-                        <div class="stats-number">${reports.length}<span style="font-size:16px; color:#718096"> 件</span></div>
-                    </div>
-
+                    <div class="stats-card"><h3>総報告件数</h3><div class="stats-number">${reports.length}<span style="font-size:16px;color:#718096"> 件</span></div></div>
                     <div class="stats-row">
-                        <div class="stats-card">
-                            <h3>軽微</h3>
-                            <div class="stats-number" style="color:#48bb78">${severityCounts['軽微']}</div>
-                        </div>
-                        <div class="stats-card">
-                            <h3>要注意</h3>
-                            <div class="stats-number" style="color:#ecc94b">${severityCounts['要注意']}</div>
-                        </div>
-                        <div class="stats-card">
-                            <h3>重大</h3>
-                            <div class="stats-number" style="color:#e53e3e">${severityCounts['重大']}</div>
-                        </div>
+                        <div class="stats-card"><h3>軽微</h3><div class="stats-number" style="color:#48bb78">${severityCounts['軽微']}</div></div>
+                        <div class="stats-card"><h3>要注意</h3><div class="stats-number" style="color:#ecc94b">${severityCounts['要注意']}</div></div>
+                        <div class="stats-card"><h3>重大</h3><div class="stats-number" style="color:#e53e3e">${severityCounts['重大']}</div></div>
                     </div>
-
-                    <div class="stats-card">
-                        <h3>分類別の報告件数</h3>
-                        <div class="bar-chart">${categoryBars}</div>
-                    </div>
-
-                    <div class="stats-card">
-                        <h3>月別推移</h3>
-                        <div class="bar-chart">${monthBars || '<p style="color:#a0aec0; text-align:center;">データ不足</p>'}</div>
-                    </div>
+                    <div class="stats-card"><h3>分類別の報告件数</h3><div class="bar-chart">${categoryBars}</div></div>
+                    <div class="stats-card"><h3>月別推移</h3><div class="bar-chart">${monthBars || '<p style="color:#a0aec0;text-align:center;">データ不足</p>'}</div></div>
                 `;
             } catch (err) {
-                container.innerHTML = `
-                    <div class="empty-state">
-                        <div class="icon">&#9888;</div>
-                        <p>集計データの取得に失敗しました</p>
-                        <p style="font-size:12px; margin-top:8px;">${escapeHtml(err.message)}</p>
-                    </div>
-                `;
+                container.innerHTML = `<div class="empty-state"><div class="icon">&#9888;</div><p>集計データの取得に失敗しました</p><p style="font-size:12px;margin-top:8px;">${escapeHtml(err.message)}</p></div>`;
             }
         }
 
