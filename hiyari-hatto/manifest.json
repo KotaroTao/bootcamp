@@ -1,0 +1,16 @@
+{
+  "name": "ヒヤリハット報告アプリ",
+  "short_name": "ヒヤリハット",
+  "description": "歯科医院向けヒヤリハット報告アプリ",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#f0f4f8",
+  "theme_color": "#e53e3e",
+  "icons": [
+    {
+      "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%23e53e3e'/><text x='50' y='68' text-anchor='middle' font-size='55'>⚠</text></svg>",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}
