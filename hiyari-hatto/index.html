@@ -1,0 +1,859 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ヒヤリハット報告アプリ - 歯科医院向け</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Hiragino Kaku Gothic ProN", "Segoe UI", sans-serif;
+            background: #f0f4f8;
+            color: #1a202c;
+            min-height: 100vh;
+        }
+
+        /* ========== ヘッダー ========== */
+        .header {
+            background: linear-gradient(135deg, #e53e3e, #c53030);
+            color: white;
+            padding: 16px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header h1 {
+            font-size: 18px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .header-icon {
+            font-size: 24px;
+        }
+
+        /* ========== タブ ========== */
+        .tabs {
+            display: flex;
+            background: white;
+            border-bottom: 2px solid #e2e8f0;
+        }
+
+        .tab {
+            flex: 1;
+            padding: 14px;
+            text-align: center;
+            font-size: 14px;
+            font-weight: 600;
+            color: #718096;
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+            transition: all 0.2s;
+        }
+
+        .tab.active {
+            color: #e53e3e;
+            border-bottom-color: #e53e3e;
+            background: #fff5f5;
+        }
+
+        /* ========== ページ ========== */
+        .page {
+            display: none;
+            padding: 16px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        /* ========== 報告フォーム ========== */
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            color: #4a5568;
+            margin-bottom: 6px;
+        }
+
+        .form-label .required {
+            color: #e53e3e;
+            margin-left: 4px;
+            font-size: 12px;
+        }
+
+        .form-input,
+        .form-select,
+        .form-textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.2s;
+            background: white;
+        }
+
+        .form-input:focus,
+        .form-select:focus,
+        .form-textarea:focus {
+            outline: none;
+            border-color: #e53e3e;
+        }
+
+        .form-textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        /* 深刻度ラジオ */
+        .severity-options {
+            display: flex;
+            gap: 8px;
+        }
+
+        .severity-option {
+            flex: 1;
+        }
+
+        .severity-option input {
+            display: none;
+        }
+
+        .severity-option label {
+            display: block;
+            text-align: center;
+            padding: 12px 8px;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+
+        .severity-option input:checked + label.severity-low {
+            background: #f0fff4;
+            border-color: #48bb78;
+            color: #276749;
+        }
+
+        .severity-option input:checked + label.severity-mid {
+            background: #fffff0;
+            border-color: #ecc94b;
+            color: #975a16;
+        }
+
+        .severity-option input:checked + label.severity-high {
+            background: #fff5f5;
+            border-color: #fc8181;
+            color: #9b2c2c;
+        }
+
+        /* 匿名チェック */
+        .anonymous-check {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 14px;
+            background: #edf2f7;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        .anonymous-check input {
+            width: 20px;
+            height: 20px;
+            accent-color: #e53e3e;
+        }
+
+        .anonymous-check span {
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        /* 送信ボタン */
+        .submit-btn {
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(135deg, #e53e3e, #c53030);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: transform 0.1s, box-shadow 0.2s;
+            box-shadow: 0 4px 12px rgba(229, 62, 62, 0.3);
+        }
+
+        .submit-btn:active {
+            transform: scale(0.98);
+        }
+
+        /* ========== 報告一覧 ========== */
+        .report-card {
+            background: white;
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 12px;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+            border-left: 4px solid #e2e8f0;
+        }
+
+        .report-card.severity-low-card {
+            border-left-color: #48bb78;
+        }
+
+        .report-card.severity-mid-card {
+            border-left-color: #ecc94b;
+        }
+
+        .report-card.severity-high-card {
+            border-left-color: #fc8181;
+        }
+
+        .report-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .report-category {
+            font-size: 12px;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 20px;
+            background: #edf2f7;
+            color: #4a5568;
+        }
+
+        .report-date {
+            font-size: 12px;
+            color: #a0aec0;
+        }
+
+        .report-content {
+            font-size: 14px;
+            line-height: 1.6;
+            color: #2d3748;
+            margin-bottom: 8px;
+        }
+
+        .report-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 12px;
+            color: #a0aec0;
+        }
+
+        .severity-badge {
+            font-size: 11px;
+            font-weight: 700;
+            padding: 3px 8px;
+            border-radius: 4px;
+        }
+
+        .severity-badge.low {
+            background: #f0fff4;
+            color: #276749;
+        }
+
+        .severity-badge.mid {
+            background: #fffff0;
+            color: #975a16;
+        }
+
+        .severity-badge.high {
+            background: #fff5f5;
+            color: #9b2c2c;
+        }
+
+        .delete-btn {
+            background: none;
+            border: none;
+            color: #cbd5e0;
+            cursor: pointer;
+            font-size: 18px;
+            padding: 4px;
+            transition: color 0.2s;
+        }
+
+        .delete-btn:hover {
+            color: #e53e3e;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: #a0aec0;
+        }
+
+        .empty-state .icon {
+            font-size: 48px;
+            margin-bottom: 12px;
+        }
+
+        /* ========== 集計ページ ========== */
+        .stats-card {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 16px;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+        }
+
+        .stats-card h3 {
+            font-size: 14px;
+            color: #718096;
+            margin-bottom: 12px;
+        }
+
+        .stats-number {
+            font-size: 36px;
+            font-weight: 800;
+            color: #e53e3e;
+        }
+
+        .stats-row {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .stats-row .stats-card {
+            flex: 1;
+            margin-bottom: 0;
+        }
+
+        .stats-row .stats-number {
+            font-size: 28px;
+        }
+
+        .bar-chart {
+            margin-top: 8px;
+        }
+
+        .bar-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+            gap: 10px;
+        }
+
+        .bar-label {
+            width: 80px;
+            font-size: 13px;
+            font-weight: 500;
+            color: #4a5568;
+            text-align: right;
+            flex-shrink: 0;
+        }
+
+        .bar-track {
+            flex: 1;
+            height: 24px;
+            background: #edf2f7;
+            border-radius: 6px;
+            overflow: hidden;
+        }
+
+        .bar-fill {
+            height: 100%;
+            border-radius: 6px;
+            transition: width 0.5s ease;
+            display: flex;
+            align-items: center;
+            padding-left: 8px;
+            font-size: 11px;
+            font-weight: 700;
+            color: white;
+            min-width: 30px;
+        }
+
+        .bar-fill.cat-medication { background: #e53e3e; }
+        .bar-fill.cat-instrument { background: #dd6b20; }
+        .bar-fill.cat-fall { background: #d69e2e; }
+        .bar-fill.cat-infection { background: #38a169; }
+        .bar-fill.cat-other { background: #718096; }
+
+        /* ========== 成功メッセージ ========== */
+        .toast {
+            position: fixed;
+            bottom: 80px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: #276749;
+            color: white;
+            padding: 14px 28px;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 600;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+            transition: transform 0.3s ease;
+            z-index: 200;
+        }
+
+        .toast.show {
+            transform: translateX(-50%) translateY(0);
+        }
+
+        /* ========== 確認ダイアログ ========== */
+        .dialog-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 300;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .dialog-overlay.show {
+            display: flex;
+        }
+
+        .dialog {
+            background: white;
+            border-radius: 16px;
+            padding: 24px;
+            width: 300px;
+            text-align: center;
+        }
+
+        .dialog p {
+            font-size: 15px;
+            margin-bottom: 20px;
+            color: #4a5568;
+        }
+
+        .dialog-buttons {
+            display: flex;
+            gap: 12px;
+        }
+
+        .dialog-btn {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .dialog-btn.cancel {
+            background: #edf2f7;
+            color: #4a5568;
+        }
+
+        .dialog-btn.confirm {
+            background: #e53e3e;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ヘッダー -->
+    <div class="header">
+        <h1>
+            <span class="header-icon">&#9888;</span>
+            ヒヤリハット報告
+        </h1>
+    </div>
+
+    <!-- タブ -->
+    <div class="tabs">
+        <div class="tab active" data-tab="report">報告する</div>
+        <div class="tab" data-tab="list">一覧</div>
+        <div class="tab" data-tab="stats">集計</div>
+    </div>
+
+    <!-- ===== 報告ページ ===== -->
+    <div id="page-report" class="page active">
+        <form id="report-form">
+            <div class="form-group">
+                <label class="form-label">
+                    発生日時<span class="required">*必須</span>
+                </label>
+                <input type="datetime-local" id="datetime" class="form-input" required>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">
+                    分類<span class="required">*必須</span>
+                </label>
+                <select id="category" class="form-select" required>
+                    <option value="">選択してください</option>
+                    <option value="投薬">投薬</option>
+                    <option value="器具">器具</option>
+                    <option value="転倒">転倒</option>
+                    <option value="感染対策">感染対策</option>
+                    <option value="その他">その他</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">
+                    内容<span class="required">*必須</span>
+                </label>
+                <textarea id="content" class="form-textarea" placeholder="何が起きたか、どう対処したかを記入してください" required></textarea>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">
+                    深刻度<span class="required">*必須</span>
+                </label>
+                <div class="severity-options">
+                    <div class="severity-option">
+                        <input type="radio" name="severity" id="sev-low" value="軽微" required>
+                        <label for="sev-low" class="severity-low">軽微</label>
+                    </div>
+                    <div class="severity-option">
+                        <input type="radio" name="severity" id="sev-mid" value="要注意">
+                        <label for="sev-mid" class="severity-mid">要注意</label>
+                    </div>
+                    <div class="severity-option">
+                        <input type="radio" name="severity" id="sev-high" value="重大">
+                        <label for="sev-high" class="severity-high">重大</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">報告者名（任意）</label>
+                <input type="text" id="reporter" class="form-input" placeholder="氏名">
+            </div>
+
+            <div class="form-group">
+                <label class="anonymous-check">
+                    <input type="checkbox" id="anonymous">
+                    <span>匿名で報告する</span>
+                </label>
+            </div>
+
+            <button type="submit" class="submit-btn">報告を送信する</button>
+        </form>
+    </div>
+
+    <!-- ===== 一覧ページ ===== -->
+    <div id="page-list" class="page">
+        <div id="report-list"></div>
+    </div>
+
+    <!-- ===== 集計ページ ===== -->
+    <div id="page-stats" class="page">
+        <div id="stats-content"></div>
+    </div>
+
+    <!-- トースト -->
+    <div id="toast" class="toast">報告を送信しました</div>
+
+    <!-- 削除確認ダイアログ -->
+    <div id="delete-dialog" class="dialog-overlay">
+        <div class="dialog">
+            <p>この報告を削除しますか？</p>
+            <div class="dialog-buttons">
+                <button class="dialog-btn cancel" id="delete-cancel">キャンセル</button>
+                <button class="dialog-btn confirm" id="delete-confirm">削除</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ===== データ管理 =====
+        const STORAGE_KEY = 'hiyari_hatto_reports';
+
+        function getReports() {
+            const data = localStorage.getItem(STORAGE_KEY);
+            return data ? JSON.parse(data) : [];
+        }
+
+        function saveReports(reports) {
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(reports));
+        }
+
+        // ===== 初期化 =====
+        document.addEventListener('DOMContentLoaded', () => {
+            // 日時を現在時刻に設定
+            setCurrentDateTime();
+
+            // 匿名チェックで氏名欄の連動
+            document.getElementById('anonymous').addEventListener('change', (e) => {
+                const reporter = document.getElementById('reporter');
+                if (e.target.checked) {
+                    reporter.value = '';
+                    reporter.disabled = true;
+                    reporter.placeholder = '匿名で報告します';
+                } else {
+                    reporter.disabled = false;
+                    reporter.placeholder = '氏名';
+                }
+            });
+
+            // タブ切り替え
+            document.querySelectorAll('.tab').forEach(tab => {
+                tab.addEventListener('click', () => switchTab(tab.dataset.tab));
+            });
+
+            // フォーム送信
+            document.getElementById('report-form').addEventListener('submit', handleSubmit);
+
+            // 削除ダイアログ
+            document.getElementById('delete-cancel').addEventListener('click', () => {
+                document.getElementById('delete-dialog').classList.remove('show');
+            });
+        });
+
+        function setCurrentDateTime() {
+            const now = new Date();
+            const offset = now.getTimezoneOffset() * 60000;
+            const local = new Date(now - offset);
+            document.getElementById('datetime').value = local.toISOString().slice(0, 16);
+        }
+
+        // ===== タブ切り替え =====
+        function switchTab(tabName) {
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+
+            document.querySelector(`.tab[data-tab="${tabName}"]`).classList.add('active');
+            document.getElementById(`page-${tabName}`).classList.add('active');
+
+            if (tabName === 'list') renderList();
+            if (tabName === 'stats') renderStats();
+        }
+
+        // ===== 報告送信 =====
+        function handleSubmit(e) {
+            e.preventDefault();
+
+            const severity = document.querySelector('input[name="severity"]:checked');
+            if (!severity) {
+                alert('深刻度を選択してください');
+                return;
+            }
+
+            const report = {
+                id: Date.now(),
+                datetime: document.getElementById('datetime').value,
+                category: document.getElementById('category').value,
+                content: document.getElementById('content').value,
+                severity: severity.value,
+                reporter: document.getElementById('anonymous').checked
+                    ? '匿名'
+                    : (document.getElementById('reporter').value || '未記入'),
+                createdAt: new Date().toISOString()
+            };
+
+            const reports = getReports();
+            reports.unshift(report);
+            saveReports(reports);
+
+            // フォームリセット
+            e.target.reset();
+            setCurrentDateTime();
+            document.getElementById('reporter').disabled = false;
+            document.getElementById('reporter').placeholder = '氏名';
+
+            showToast('報告を送信しました');
+        }
+
+        // ===== 一覧表示 =====
+        function renderList() {
+            const reports = getReports();
+            const container = document.getElementById('report-list');
+
+            if (reports.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <div class="icon">&#128203;</div>
+                        <p>まだ報告がありません</p>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = reports.map(r => {
+                const severityClass = r.severity === '軽微' ? 'low' : r.severity === '要注意' ? 'mid' : 'high';
+                const cardClass = r.severity === '軽微' ? 'severity-low-card' : r.severity === '要注意' ? 'severity-mid-card' : 'severity-high-card';
+                const date = new Date(r.datetime);
+                const dateStr = `${date.getMonth() + 1}/${date.getDate()} ${String(date.getHours()).padStart(2, '0')}:${String(date.getMinutes()).padStart(2, '0')}`;
+
+                return `
+                    <div class="report-card ${cardClass}">
+                        <div class="report-header">
+                            <span class="report-category">${escapeHtml(r.category)}</span>
+                            <span class="report-date">${dateStr}</span>
+                        </div>
+                        <div class="report-content">${escapeHtml(r.content)}</div>
+                        <div class="report-footer">
+                            <span class="severity-badge ${severityClass}">${escapeHtml(r.severity)}</span>
+                            <span>${escapeHtml(r.reporter)}</span>
+                            <button class="delete-btn" onclick="confirmDelete(${r.id})" title="削除">&#128465;</button>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // ===== 削除 =====
+        let deleteTargetId = null;
+
+        function confirmDelete(id) {
+            deleteTargetId = id;
+            document.getElementById('delete-dialog').classList.add('show');
+        }
+
+        document.getElementById('delete-confirm').addEventListener('click', () => {
+            if (deleteTargetId !== null) {
+                let reports = getReports();
+                reports = reports.filter(r => r.id !== deleteTargetId);
+                saveReports(reports);
+                deleteTargetId = null;
+                document.getElementById('delete-dialog').classList.remove('show');
+                renderList();
+                showToast('報告を削除しました');
+            }
+        });
+
+        // ===== 集計 =====
+        function renderStats() {
+            const reports = getReports();
+            const container = document.getElementById('stats-content');
+
+            if (reports.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <div class="icon">&#128202;</div>
+                        <p>データがありません</p>
+                    </div>
+                `;
+                return;
+            }
+
+            // 深刻度別カウント
+            const severityCounts = { '軽微': 0, '要注意': 0, '重大': 0 };
+            reports.forEach(r => { severityCounts[r.severity] = (severityCounts[r.severity] || 0) + 1; });
+
+            // 分類別カウント
+            const categoryCounts = {};
+            reports.forEach(r => { categoryCounts[r.category] = (categoryCounts[r.category] || 0) + 1; });
+            const maxCatCount = Math.max(...Object.values(categoryCounts));
+
+            const catColors = {
+                '投薬': 'cat-medication',
+                '器具': 'cat-instrument',
+                '転倒': 'cat-fall',
+                '感染対策': 'cat-infection',
+                'その他': 'cat-other'
+            };
+
+            const categoryBars = Object.entries(categoryCounts)
+                .sort((a, b) => b[1] - a[1])
+                .map(([cat, count]) => {
+                    const pct = Math.round((count / maxCatCount) * 100);
+                    const colorClass = catColors[cat] || 'cat-other';
+                    return `
+                        <div class="bar-item">
+                            <span class="bar-label">${escapeHtml(cat)}</span>
+                            <div class="bar-track">
+                                <div class="bar-fill ${colorClass}" style="width: ${pct}%">${count}件</div>
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+
+            // 月別推移（直近6ヶ月）
+            const monthCounts = {};
+            reports.forEach(r => {
+                const d = new Date(r.datetime);
+                const key = `${d.getFullYear()}/${d.getMonth() + 1}`;
+                monthCounts[key] = (monthCounts[key] || 0) + 1;
+            });
+            const maxMonthCount = Math.max(...Object.values(monthCounts), 1);
+            const monthBars = Object.entries(monthCounts)
+                .sort((a, b) => a[0].localeCompare(b[0]))
+                .slice(-6)
+                .map(([month, count]) => {
+                    const pct = Math.round((count / maxMonthCount) * 100);
+                    return `
+                        <div class="bar-item">
+                            <span class="bar-label">${month}</span>
+                            <div class="bar-track">
+                                <div class="bar-fill cat-medication" style="width: ${pct}%">${count}件</div>
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+
+            container.innerHTML = `
+                <div class="stats-card">
+                    <h3>総報告件数</h3>
+                    <div class="stats-number">${reports.length}<span style="font-size:16px; color:#718096"> 件</span></div>
+                </div>
+
+                <div class="stats-row">
+                    <div class="stats-card">
+                        <h3>軽微</h3>
+                        <div class="stats-number" style="color:#48bb78">${severityCounts['軽微']}</div>
+                    </div>
+                    <div class="stats-card">
+                        <h3>要注意</h3>
+                        <div class="stats-number" style="color:#ecc94b">${severityCounts['要注意']}</div>
+                    </div>
+                    <div class="stats-card">
+                        <h3>重大</h3>
+                        <div class="stats-number" style="color:#e53e3e">${severityCounts['重大']}</div>
+                    </div>
+                </div>
+
+                <div class="stats-card">
+                    <h3>分類別の報告件数</h3>
+                    <div class="bar-chart">${categoryBars}</div>
+                </div>
+
+                <div class="stats-card">
+                    <h3>月別推移</h3>
+                    <div class="bar-chart">${monthBars || '<p style="color:#a0aec0; text-align:center;">データ不足</p>'}</div>
+                </div>
+            `;
+        }
+
+        // ===== ユーティリティ =====
+        function escapeHtml(str) {
+            const div = document.createElement('div');
+            div.textContent = str;
+            return div.innerHTML;
+        }
+
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 2500);
+        }
+    </script>
+</body>
+</html>
